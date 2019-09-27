@@ -1,0 +1,11 @@
+[
+{"type":"header","version":"4.9.0.1","comment":"Export to JSON plugin for PHPMyAdmin"},
+{"type":"database","name":"simku"},
+{"type":"table","name":"program","database":"simku","data":
+[
+{"nama":"Strata Satu","alias":"S1","kd_program":"06","jml_tingkat":"8","aktif":"1","created_date":null,"created_by":null,"update_date":null,"update_by":null},
+{"nama":"Diploma Tiga","alias":"D3","kd_program":"05","jml_tingkat":"6","aktif":"1","created_date":null,"created_by":null,"update_date":null,"update_by":null},
+{"nama":"Kursus","alias":"KS","kd_program":"01","jml_tingkat":"1","aktif":"1","created_date":null,"created_by":null,"update_date":null,"update_by":null}
+]
+}
+]

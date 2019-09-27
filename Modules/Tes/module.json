@@ -1,0 +1,14 @@
+{
+    "name": "Tes",
+    "alias": "tes",
+    "description": "",
+    "keywords": [],
+    "active": 1,
+    "order": 0,
+    "providers": [
+        "Modules\\Tes\\Providers\\TesServiceProvider"
+    ],
+    "aliases": {},
+    "files": [],
+    "requires": []
+}
