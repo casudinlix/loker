@@ -21,6 +21,10 @@ Route::group(['middleware' => ['auth:admin'],'prefix' => 'admin'], function () {
     Route::get('/xx','AdminController@home');
     Route::post('/psb/store', 'PsbController@create')->name('psbgelombang.store');
     Route::get('list/psb','PsbController@data_psb')->name('data.psb');
+    Route::post('psb/delete','PsbController@hapus')->name('delete.psb');
     Route::post('psb/posting/','PsbController@storepsb')->name('posting.psb');
+    Route::get('keuangan/kra', 'KeuanganController@kra')->name('kra.index');
+    Route::post('keuangan/kra/api','KeuanganController@kralist')->name('kra.list');
+
 
 });

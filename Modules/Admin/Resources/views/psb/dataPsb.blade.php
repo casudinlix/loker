@@ -24,16 +24,13 @@ Data PMB
 @section('content')
   <div class="row">
 
-<div class="col-md-12">
+    <div class="col-md-12">
 
                            <!-- START STRIPED TABLE SAMPLE -->
                            <div class="panel panel-default">
                                <div class="panel-heading">
                                    <h3 class="panel-title">Data PMB</h3>
-                                   <ul class="panel-controls">
-                                        <li><a data-toggle="modal" data-target="#modal_basic" class="panel" data-toggle="tooltip" data-placement="top" title="Tambah data" ><span class="fa fa-plus"></span></a></li>
-                                        <li><a href="#" class="panel-refresh"><span class="fa fa-refresh"></span></a></li>
-                                    </ul>
+                                   
                                </div>
                                <div class="panel-body">
 
@@ -107,12 +104,13 @@ Data PMB
     var id=$id
     alertify.confirm('Hapus Calon Mahasiwa', 'Data Yang Dihapus tidak dapat di kembalikan', function(){
       $.ajax({
-        url: '/path/to/file',
-        type: 'default GET (Other values: POST)',
-        dataType: 'default: Intelligent Guess (Other values: xml, json, script, or html)',
-        data: {param1: 'value1'},
+        url: '{{ route('delete.psb') }}',
+        type: 'POST',
+        dataType: 'JSON',
+        data: {uuid:id },
         success:function(response){
-        alertify.success('Ok')
+          window.location.reload();
+        alertify.success('Data Berhasil Di Hapus')
         },
         error:function(response){
           alertify.error('Error')

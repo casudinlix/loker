@@ -96,8 +96,8 @@ class AkademikController extends Controller
           try {
               DB::commit();
               // all good
-              DB::table('akademik')->insert([
-                'uuid'=>unik(),
+              DB::table('akademik')->where('uuid', $id)->update([
+
                 'kode'=>$request->kode,
                 'name'=>$request->nama,
                 'ket'=>$request->ket,
@@ -105,9 +105,9 @@ class AkademikController extends Controller
                 'end_date'=>$request->end_date,
                 'status'=>true,
                 'created_by'=>getadmin(),
-                'created_at'=>Carbon::now()
+                'updated_at'=>Carbon::now()
               ]);
-              toastr()->success('Berhasil Entry Data', 'Sukses!');
+              toastr()->success('Berhasil Update Data', 'Sukses!');
               return redirect()->back();
           } catch (\Exception $e) {
               DB::rollback();

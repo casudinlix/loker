@@ -2,6 +2,8 @@
 use App\Traits\Uuid as Generator;
 use Ramsey\Uuid\Uuid;
 use Carbon\Carbon;
+ 
+
 function getadmin()
 {
   return Auth::user()->name;
@@ -20,4 +22,8 @@ function tgl_indo($tgl){
 function agama()
 {
   return $data=['name'=>'Islam','name'=>'Kristen','name'=>'Hindu','name'=>'Budha','name'=>'Protestan','name'=>'Other'];
+}
+function allkurikulum($uuid)
+{
+
 }

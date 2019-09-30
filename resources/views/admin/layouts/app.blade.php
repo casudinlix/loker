@@ -19,6 +19,7 @@
         <link rel="stylesheet" type="text/css" id="theme" href="{{asset('css/theme-default.css')}}"/>
         <!-- EOF CSS INCLUDE -->
         <link href="{{asset('toastr.css')}}" rel="stylesheet">
+        <link rel="stylesheet" href="{{asset('alert/css/alertify.min.css')}}">
         @yield('css')
     </head>
     <body>
@@ -94,6 +95,7 @@
         <script type="text/javascript" src="{{asset('js/plugins/jquery/jquery.min.js')}}"></script>
         <script type="text/javascript" src="{{asset('js/plugins/jquery/jquery-ui.min.js')}}"></script>
         <script type="text/javascript" src="{{asset('js/plugins/bootstrap/bootstrap.min.js')}}"></script>
+        <script src="{{ asset('alert/alertify.min.js') }}" charset="utf-8"></script>
         <!-- END PLUGINS -->
 
         <!-- THIS PAGE PLUGINS -->
@@ -125,7 +127,7 @@
         <script type="text/javascript" src="{{asset('js/plugins.js')}}"></script>
         <script type="text/javascript" src="{{asset('js/actions.js')}}"></script>
         <script type="text/javascript">
-          
+
         </script>
         @yield('script')
         <!-- END TEMPLATE -->

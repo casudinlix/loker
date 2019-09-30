@@ -219,7 +219,7 @@ class PsbController extends Controller
               'created_at'=>Carbon::now()
 
             ]);
-            DB::table('psb')->where('uuid',$request->uuid)->update(['daftar_ulang'=>true]);
+            DB::table('psb')->where('uuid',$request->uuid)->update(['daftar_ulang'=>true,'updated_at'=>Carbon::now()]);
             $user=User::where('email',$request->email)->first();
 
             $data=[
@@ -259,6 +259,25 @@ class PsbController extends Controller
       $this->authorize('data.psb');
       $data=DB::table('psb')->where('status',true)->where('daftar_ulang',false)->get();
       return view('admin::psb.dataPsb',compact('data'));
+    }
+    function hapus(Request $request)
+    {
+      $this->authorize('delete.psb');
+      DB::beginTransaction();
+
+          try {
+              DB::commit();
+              // all good
+              DB::table('psb')->where('uuid',$request->uuid)->delete();
+
+              return response()->json(['status'=>'success',200]);
+
+          } catch (\Exception $e) {
+              DB::rollback();
+
+              return response()->json(['status'=>'error','reason'=>$e->getMessage(),200]);
+          }
+
     }
 
     /**

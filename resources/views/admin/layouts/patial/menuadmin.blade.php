@@ -26,6 +26,52 @@
     <li class="">
         <a href="{{route('admin.home')}}"><span class="fa fa-desktop"></span> <span class="xn-text">Dashboard</span></a>
     </li>
+
+
+    <li class="xn-openable">
+        <a href="#"><span class="fa fa-mortar-board"></span> <span class="xn-text">Akademik</span></a>
+        <ul>
+            <li><a href="{{ route('psb.index') }}"><span class="fa fa-file-o"></span>PSB</a></li>
+            <li><a href="{{ route('data.psb') }}"><span class="glyphicon glyphicon-pencil"></span>Daftar Ulang</a></li>
+            <li><a href="layout-nav-top.html"><span class="fa fa-angle-right"></span>Pindah Jurusan</a></li>
+            <li><a href="layout-nav-top.html"><span class="fa fa-calendar-o"></span>Jadwal Kuliah</a></li>
+            <li><a href="layout-nav-right.html"><span class="fa fa-calendar-o"></span>Tugas</a></li>
+            <li><a href="layout-nav-top-fixed.html"><span class="fa fa-clock-o"></span>Absensi</a></li>
+            <li><a href="pages-address-book.html"><span class="fa fa-group"></span> Dosen</a></li>
+
+            <li><a href="pages-profile.html"><span class="fa fa-calendar"></span> Periode Akademin</a></li>
+            <li><a href="pages-address-book.html"><span class="fa fa-signal"></span> Jenjang</a></li>
+            <li><a href="pages-address-book.html"><span class="fa fa-user-md"></span> Prodi</a></li>
+            <li><a href="pages-address-book.html"><span class="fa fa-book"></span> Kurikulum</a></li>
+            <li><a href="pages-address-book.html"><span class="fa fa-file-text"></span> Matakuliah</a></li>
+
+
+        </ul>
+    </li>
+    <li class="xn-openable">
+        <a href="#"><span class="fa fa-clock-o"></span> KRS / KRA</a>
+        <ul>
+            <li><a href="pages-timeline.html"><span class="fa fa-align-center"></span> Pengjuan KRS</a></li>
+            <li><a href="pages-timeline-simple.html"><span class="fa fa-align-justify"></span> Ujian Online</a></li>
+        </ul>
+    </li>
+    <li class="xn-openable">
+        <a href="#"><span class="fa fa-clock-o"></span> Ujian</a>
+        <ul>
+            <li><a href="pages-timeline.html"><span class="fa fa-align-center"></span> Jadwal Ujian</a></li>
+            <li><a href="pages-timeline-simple.html"><span class="fa fa-align-justify"></span> Ujian Online</a></li>
+        </ul>
+    </li>
+    <li class="xn-openable">
+        <a href="#"><span class="fa fa-clock-o"></span> Nilai</a>
+        <ul>
+          <li><a href="pages-timeline.html"><span class="fa fa-align-center"></span> Mahasiswa</a></li>
+            <li><a href="pages-timeline.html"><span class="fa fa-align-center"></span> KHS</a></li>
+            <li><a href="pages-timeline-simple.html"><span class="fa fa-align-justify"></span> KHS Semester</a></li>
+            <li><a href="pages-timeline-simple.html"><span class="fa fa-align-justify"></span> Nilai Awal</a></li>
+
+        </ul>
+    </li>
     <li class="xn-openable">
         <a href="#"><span class="fa fa-cogs"></span> <span class="xn-text">Master</span></a>
         <ul>
@@ -67,51 +113,6 @@
             </li>
         </ul>
     </li>
-
-    <li class="xn-openable">
-        <a href="#"><span class="fa fa-mortar-board"></span> <span class="xn-text">Akademik</span></a>
-        <ul>
-            <li><a href="{{ route('psb.index') }}"><span class="fa fa-file-o"></span>PSB</a></li>
-            <li><a href="{{ route('data.psb') }}"><span class="glyphicon glyphicon-pencil"></span>Daftar Ulang</a></li>
-            <li><a href="layout-nav-top.html"><span class="fa fa-angle-right"></span>Pindah Jurusan</a></li>
-            <li><a href="layout-nav-top.html"><span class="fa fa-calendar-o"></span>Jadwal Kuliah</a></li>
-            <li><a href="layout-nav-right.html"><span class="fa fa-calendar-o"></span>Tugas</a></li>
-            <li><a href="layout-nav-top-fixed.html"><span class="fa fa-clock-o"></span>Absensi</a></li>
-            <li><a href="pages-address-book.html"><span class="fa fa-group"></span> Dosen</a></li>
-
-            <li><a href="pages-profile.html"><span class="fa fa-calendar"></span> Periode Akademin</a></li>
-            <li><a href="pages-address-book.html"><span class="fa fa-signal"></span> Jenjang</a></li>
-            <li><a href="pages-address-book.html"><span class="fa fa-user-md"></span> Prodi</a></li>
-            <li><a href="pages-address-book.html"><span class="fa fa-book"></span> Kurikulum</a></li>
-            <li><a href="pages-address-book.html"><span class="fa fa-file-text"></span> Matakuliah</a></li>
-             
-
-        </ul>
-    </li>
-    <li class="xn-openable">
-        <a href="#"><span class="fa fa-clock-o"></span> KRS / KRA</a>
-        <ul>
-            <li><a href="pages-timeline.html"><span class="fa fa-align-center"></span> Pengjuan KRS</a></li>
-            <li><a href="pages-timeline-simple.html"><span class="fa fa-align-justify"></span> Ujian Online</a></li>
-        </ul>
-    </li>
-    <li class="xn-openable">
-        <a href="#"><span class="fa fa-clock-o"></span> Ujian</a>
-        <ul>
-            <li><a href="pages-timeline.html"><span class="fa fa-align-center"></span> Jadwal Ujian</a></li>
-            <li><a href="pages-timeline-simple.html"><span class="fa fa-align-justify"></span> Ujian Online</a></li>
-        </ul>
-    </li>
-    <li class="xn-openable">
-        <a href="#"><span class="fa fa-clock-o"></span> Nilai</a>
-        <ul>
-          <li><a href="pages-timeline.html"><span class="fa fa-align-center"></span> Mahasiswa</a></li>
-            <li><a href="pages-timeline.html"><span class="fa fa-align-center"></span> KHS</a></li>
-            <li><a href="pages-timeline-simple.html"><span class="fa fa-align-justify"></span> KHS Semester</a></li>
-            <li><a href="pages-timeline-simple.html"><span class="fa fa-align-justify"></span> Nilai Awal</a></li>
-
-        </ul>
-    </li>
     <li class="xn-title">Components</li>
     <li class="">
         <a href="{{route('admin.home')}}"><span class="glyphicon glyphicon-book"></span> <span class="xn-text">E-Library</span></a>
@@ -119,12 +120,24 @@
     <li class="">
         <a href="{{route('admin.home')}}"><span class="glyphicon glyphicon-bullhorn"></span> <span class="xn-text">Pengumuman</span></a>
     </li>
+
+
+
     <li class="xn-openable">
-        <a href="#"><span class="fa fa-envelope"></span> Pesan</a>
+        <a href="#"><span class="fa fa-bar-chart-o"></span> <span class="xn-text">Keuangan</span></a>
         <ul>
-            <li><a href="pages-mailbox-inbox.html"><span class="fa fa-inbox"></span> Inbox</a></li>
-            <li><a href="pages-mailbox-message.html"><span class="fa fa-file-text"></span> Message</a></li>
-            <li><a href="pages-mailbox-compose.html"><span class="fa fa-pencil"></span> Compose</a></li>
+             <li><a href="{{ route('kra.index') }}"><span class="fa fa-briefcase"></span> KRA</a></li>
+            <li><a href="pages-mailbox-inbox.html"><span class="fa fa-credit-card"></span> Invoice</a></li>s
+            <li><a href="pages-mailbox-inbox.html"><span class="fa fa-credit-card"></span> Transaksi</a></li>s
+        </ul>
+    </li>
+    <li class="xn-openable">
+        <a href="#"><span class="fa fa-bar-chart-o"></span> <span class="xn-text">Laporan</span></a>
+        <ul>
+            <li><a href="charts-morris.html"><span class="xn-text">Keuangan Mahaiswa</span></a></li>
+            <li><a href="charts-nvd3.html"><span class="xn-text">NVD3</span></a></li>
+            <li><a href="charts-rickshaw.html"><span class="xn-text">Rickshaw</span></a></li>
+            <li><a href="charts-other.html"><span class="xn-text">Other</span></a></li>
         </ul>
     </li>
     <li class="xn-openable">
@@ -141,6 +154,17 @@
             <li><a href="layout-search-left.html">Search Left Side</a></li>
             <li><a href="blank.html">Blank Page</a></li>
         </ul>
+    </li>
+    <li class="xn-openable">
+        <a href="#"><span class="fa fa-envelope"></span> Pesan</a>
+        <ul>
+            <li><a href="pages-mailbox-inbox.html"><span class="fa fa-inbox"></span> Inbox</a></li>
+            <li><a href="pages-mailbox-message.html"><span class="fa fa-file-text"></span> Message</a></li>
+            <li><a href="pages-mailbox-compose.html"><span class="fa fa-pencil"></span> Compose</a></li>
+        </ul>
+    </li>
+    <li>
+        <a href="maps.html"><span class="fa fa-map-marker"></span> <span class="xn-text">Maps</span></a>
     </li>
     <li class="xn-openable">
         <a href="#"><span class="fa fa-pencil"></span> <span class="xn-text">Forms</span></a>
@@ -169,27 +193,6 @@
             <li><a href="table-datatables.html"><span class="fa fa-sort-alpha-desc"></span> Data Tables</a></li>
             <li><a href="table-export.html"><span class="fa fa-download"></span> Export Tables</a></li>
         </ul>
-    </li>
-    <li class="xn-openable">
-        <a href="#"><span class="fa fa-bar-chart-o"></span> <span class="xn-text">Keuangan</span></a>
-        <ul>
-            <li><a href="charts-morris.html"><span class="xn-text">Keuangan Mahaiswa</span></a></li>
-            <li><a href="charts-nvd3.html"><span class="xn-text">Invoice</span></a></li>
-            <li><a href="charts-rickshaw.html"><span class="xn-text">Rickshaw</span></a></li>
-            <li><a href="charts-other.html"><span class="xn-text">Other</span></a></li>
-        </ul>
-    </li>
-    <li class="xn-openable">
-        <a href="#"><span class="fa fa-bar-chart-o"></span> <span class="xn-text">Laporan</span></a>
-        <ul>
-            <li><a href="charts-morris.html"><span class="xn-text">Keuangan Mahaiswa</span></a></li>
-            <li><a href="charts-nvd3.html"><span class="xn-text">NVD3</span></a></li>
-            <li><a href="charts-rickshaw.html"><span class="xn-text">Rickshaw</span></a></li>
-            <li><a href="charts-other.html"><span class="xn-text">Other</span></a></li>
-        </ul>
-    </li>
-    <li>
-        <a href="maps.html"><span class="fa fa-map-marker"></span> <span class="xn-text">Maps</span></a>
     </li>
     <li class="xn-openable">
         <a href="#"><span class="fa fa-sitemap"></span> <span class="xn-text">Navigation Levels</span></a>
