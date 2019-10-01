@@ -37,8 +37,8 @@
             <li><a href="layout-nav-top.html"><span class="fa fa-calendar-o"></span>Jadwal Kuliah</a></li>
             <li><a href="layout-nav-right.html"><span class="fa fa-calendar-o"></span>Tugas</a></li>
             <li><a href="layout-nav-top-fixed.html"><span class="fa fa-clock-o"></span>Absensi</a></li>
-            <li><a href="pages-address-book.html"><span class="fa fa-group"></span> Dosen</a></li>
-
+            <li><a href="{{ route('dosen.index') }}"><span class="fa fa-group"></span> Dosen</a></li>
+            <li><a href="{{ route('mahasiswa.index') }}"><span class="fa fa-group"></span> Mahasiswa</a></li>
             <li><a href="pages-profile.html"><span class="fa fa-calendar"></span> Periode Akademin</a></li>
             <li><a href="pages-address-book.html"><span class="fa fa-signal"></span> Jenjang</a></li>
             <li><a href="pages-address-book.html"><span class="fa fa-user-md"></span> Prodi</a></li>
@@ -124,11 +124,11 @@
 
 
     <li class="xn-openable">
-        <a href="#"><span class="fa fa-bar-chart-o"></span> <span class="xn-text">Keuangan</span></a>
+        <a href="#"><span class="fa fa-money"></span> <span class="xn-text">Keuangan</span></a>
         <ul>
              <li><a href="{{ route('kra.index') }}"><span class="fa fa-briefcase"></span> KRA</a></li>
-            <li><a href="pages-mailbox-inbox.html"><span class="fa fa-credit-card"></span> Invoice</a></li>s
-            <li><a href="pages-mailbox-inbox.html"><span class="fa fa-credit-card"></span> Transaksi</a></li>s
+            <li><a href="pages-mailbox-inbox.html"><span class="fa fa-credit-card"></span> Invoice</a></li>
+            <li><a href="pages-mailbox-inbox.html"><span class="fa fa-keyboard-o"></span> Transaksi</a></li>
         </ul>
     </li>
     <li class="xn-openable">

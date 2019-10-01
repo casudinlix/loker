@@ -1,16 +1,17 @@
 @extends('admin.layouts.app')
 @section('title')
-Periode Akademik
+Mahasiswa
 @endsection
 @section('css')
-<link rel="stylesheet" href="{{ asset('js/plugins/datatables/responsive.jqueryui.min.css') }}">
+  <link rel="stylesheet" href="{{asset('select2/dist/css/select2.min.css')}}">
+  <link rel="stylesheet" href="{{ asset('js/plugins/datatables/responsive.jqueryui.min.css') }}">
+  <link rel="stylesheet" href="{{asset('jquery.modal.min.css')}}">
 @endsection
 @section('atas')
   <ul class="breadcrumb">
-                      <li><a href="#">Pengaturan</a></li>
-                      <li class="active">Periode Akademik</li>
-
-                  </ul>
+      <li><a href="#">Akademik</a></li>
+      <li class="active">Mahasiswa</li>
+  </ul>
 @endsection
 @section('content')
   <div class="col-md-12">
@@ -19,35 +20,31 @@ Periode Akademik
                               <div class="panel panel-default">
                                   <div class="panel-heading">
                                       <h3 class="panel-title">@yield('title')</h3>
-                                      <ul class="panel-controls">
-                                        <li><a href="#" class="panel" data-toggle="tooltip" data-placement="top" title="Tambah Data"><span class="fa fa-plus"></span></a></li>
-                                        <li><a href="#" class="panel-refresh"><span class="fa fa-refresh"></span></a></li>
-                                    </ul>
+
                                       <div class="btn-group pull-right">
                                           <button class="btn btn-danger dropdown-toggle" data-toggle="dropdown"><i class="fa fa-bars"></i> Export Data</button>
                                           <ul class="dropdown-menu">
 
 
-                                              <li><a href="#" onClick ="$('#akademik').tableExport({type:'excel',escape:'false'});"><img src='{{asset('img/icons/xls.png')}}' width="24"/> XLS</a></li>
-                                              <li><a href="#" onClick ="$('#akademik').tableExport({type:'doc',escape:'false'});"><img src='{{asset('img/icons/word.png')}}' width="24"/> Word</a></li>
-                                              <li><a href="#" onClick ="$('#akademik').tableExport({type:'powerpoint',escape:'false'});"><img src='{{asset('img/icons/ppt.png')}}' width="24"/> PowerPoint</a></li>
-                                              <li><a href="#" onClick ="$('#akademik').tableExport({type:'pdf',escape:'false'});"><img src='{{asset('img/icons/pdf.png')}}' width="24"/> PDF</a></li>
+                                              <li><a href="#" onClick ="$('#mahasiswa').tableExport({type:'excel',escape:'false'});"><img src='{{asset('img/icons/xls.png')}}' width="24"/> XLS</a></li>
+                                              <li><a href="#" onClick ="$('#mahasiswa').tableExport({type:'doc',escape:'false'});"><img src='{{asset('img/icons/word.png')}}' width="24"/> Word</a></li>
+                                              <li><a href="#" onClick ="$('#mahasiswa').tableExport({type:'powerpoint',escape:'false'});"><img src='{{asset('img/icons/ppt.png')}}' width="24"/> PowerPoint</a></li>
+                                              <li><a href="#" onClick ="$('#mahasiswa').tableExport({type:'pdf',escape:'false'});"><img src='{{asset('img/icons/pdf.png')}}' width="24"/> PDF</a></li>
                                           </ul>
                                       </div>
 
                                   </div>
                                   <div class="panel-body">
-                                      <table id="akademik" class="table" width="100%">
+                                      <table id="mahasiswa" class="table" width="100%">
                                           <thead>
                                               <tr>
                                                   <th>No</th>
-                                                  <th>Kode</th>
-                                                  <th>Nama</th>
-                                                  <th>Keterangan</th>
-                                                  <th>Tanggal Mulai</th>
-                                                  <th>Tanggal Selasai</th>
-                                                  <th>Dibuat</th>
-                                                  <th>Status</th>
+                                                  <th>NIM</th>
+                                                  <th>Nama Lengkap</th>
+                                                  <th>Jurusan</th>
+                                                  <th>Telpon</th>
+                                                  <th>Angkatan</th>
+
                                                   <th>#</th>
                                               </tr>
                                           </thead>
@@ -64,12 +61,17 @@ Periode Akademik
 
 
                           </div>
+
 @endsection
 @section('js')
+  <script type="text/javascript" src="{{asset('jquery.modal.min.js')}}"></script>
   <script type="text/javascript" src="{{asset('js/plugins/datatables/jquery.dataTables.min.js')}}"></script>
   <script type="text/javascript" src="{{asset('js/plugins/datatables/dataTables.responsive.js')}}"></script>
+  <script type="text/javascript" src="{{asset('js/plugins/bootstrap/bootstrap-select.js')}}"></script>
+  <script type="text/javascript" src="{{asset('js/plugins/bootstrap/bootstrap-datepicker.js')}}"></script>
+ <script src="{{ asset('select2/dist/js/select2.full.min.js') }}" charset="utf-8"></script>
 
-    <script type="text/javascript" src="{{asset('js/plugins/tableexport/tableExport.js')}}"></script>
+   <script type="text/javascript" src="{{asset('js/plugins/tableexport/tableExport.js')}}"></script>
 <script type="text/javascript" src="{{asset('js/plugins/tableexport/jquery.base64.js')}}"></script>
 <script type="text/javascript" src="{{asset('js/plugins/tableexport/html2canvas.js')}}"></script>
 <script type="text/javascript" src="{{asset('js/plugins/tableexport/jspdf/libs/sprintf.js')}}"></script>
@@ -78,8 +80,8 @@ Periode Akademik
 @endsection
 @section('script')
 
-<script type="text/javascript">
-var table=  $('#akademik').DataTable({
+  <script type="text/javascript">
+  var table=  $('#mahasiswa').DataTable({
       processing: true,
       serverSide: true,
       responsive: true,
@@ -88,24 +90,23 @@ var table=  $('#akademik').DataTable({
             paging: true,
             pageLength:5,
       ajax: {
-          url: '{{route('api.akademik')}}',
+          url: '{{route('api.mhs')}}',
           method: 'POST'
       },
 
       columns: [
           {data: 'DT_RowIndex', orderable: false, searchable: false},
-          {data: 'kode', name: 'kode'},
-          {data: 'name', name: 'name',orderable: false},
-          {data: 'ket', name: 'ket',orderable: false},
-          {data: 'start_date', name: 'start_date',orderable: false},
-          {data: 'end_date', name: 'end_date',orderable: false},
-          {data: 'created_by', name: 'created_by',orderable: false},
-          {data: 'status', name: 'status',orderable: false},
+          {data: 'nim', name: 'mahasiswa.nim'},
+          {data: 'name', name: 'users.name',orderable: false},
+          {data: 'nama_jurusan', name: 'jurusan.name',orderable: false},
+          {data: 'tlp', name: 'profile.tlp',orderable: false},
+          {data: 'angkatan', name: 'mahasiswa.angkatan',orderable: false},
+
 
            {data: 'action', name: 'action', orderable: false, searchable: false}
 
       ],
 
   });
-</script>
+  </script>
 @endsection

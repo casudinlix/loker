@@ -190,6 +190,7 @@ class PsbController extends Controller
               'nama_lengkap'=>$request->nama,
               'dob'=>$request->tgl_lahir,
               'sex'=>$request->sex,
+              'tempat_lahir'=>$request->tempatlahir,
               'religion'=>$request->agama,
               'merital_status'=>$request->merital_status,
               'blood_type'=>$request->blood_type,

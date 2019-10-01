@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Notifications;
+namespace Modules\Admin\Notifications;
 
 use Illuminate\Bus\Queueable;
+use Illuminate\Notifications\Notification;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
-use Illuminate\Notifications\Notification;
 
-class UserWelcome extends Notification
+class WelcomeDosen extends Notification
 {
     use Queueable;
     private $data;
@@ -18,13 +18,13 @@ class UserWelcome extends Notification
      */
     public function __construct($data)
     {
-        $this->data = $data;
+          $this->data = $data;
     }
 
     /**
      * Get the notification's delivery channels.
      *
-     * @param  mixed  $notifiable
+     * @param mixed $notifiable
      * @return array
      */
     public function via($notifiable)
@@ -35,7 +35,7 @@ class UserWelcome extends Notification
     /**
      * Get the mail representation of the notification.
      *
-     * @param  mixed  $notifiable
+     * @param mixed $notifiable
      * @return \Illuminate\Notifications\Messages\MailMessage
      */
     public function toMail($notifiable)
@@ -43,17 +43,18 @@ class UserWelcome extends Notification
       return (new MailMessage)
       ->subject('welcome To Loker MIC')
       ->greeting('Hello '.$this->data['name'])
-      ->line('Berikut Adalah Informasi Login Anda.')
+      ->line('Berikut Adalah Informasi Login Anda Sebagai Dosen MIC.')
       ->line('Email : '.$this->data['email'])
-      ->line('Password : '.$this->data['old_password'])
-      ->action('Anda Dapat Login', url('/login'))
+      ->line('Password : '.$this->data['password'])
+      ->line('Ingat Dan Simpan Email .')
+      ->action('Anda Dapat Login', url('/dosen/login'))
       ->line('Terimkasih Telah memilih MIC Sebagai Kampus Anda!');
     }
 
     /**
      * Get the array representation of the notification.
      *
-     * @param  mixed  $notifiable
+     * @param mixed $notifiable
      * @return array
      */
     public function toArray($notifiable)
