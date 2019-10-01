@@ -24,6 +24,8 @@ Route::group(['middleware' => ['auth:admin'],'prefix' => 'admin'], function () {
     Route::post('api/mhs','MahasiswaController@mhs')->name('api.mhs');
     Route::get('/modal/mhs/nilai','MahasiswaController@nilai')->name('modal.nilai');
     Route::get('/modal/mhs/ktm/{id}','MahasiswaController@ktm')->name('modal.ktm');
+    Route::get('/modal/pndah/mhs/{id}','MahasiswaController@pindah')->name('modal.pindah');
+    Route::post('postpindah/{id}','MahasiswaController@postpindah')->name('post.pindah');
     Route::get('/xx','AdminController@home');
     Route::post('/psb/store', 'PsbController@create')->name('psbgelombang.store');
     Route::get('list/psb','PsbController@data_psb')->name('data.psb');
@@ -31,6 +33,6 @@ Route::group(['middleware' => ['auth:admin'],'prefix' => 'admin'], function () {
     Route::post('psb/posting/','PsbController@storepsb')->name('posting.psb');
     Route::get('keuangan/kra', 'KeuanganController@kra')->name('kra.index');
     Route::post('keuangan/kra/api','KeuanganController@kralist')->name('kra.list');
- 
+
 
 });

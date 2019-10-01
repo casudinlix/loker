@@ -42,6 +42,7 @@ Mahasiswa
                                                   <th>NIM</th>
                                                   <th>Nama Lengkap</th>
                                                   <th>Jurusan</th>
+                                                  <th>Kurikulum</th>
                                                   <th>Telpon</th>
                                                   <th>Angkatan</th>
 
@@ -99,6 +100,7 @@ Mahasiswa
           {data: 'nim', name: 'mahasiswa.nim'},
           {data: 'name', name: 'users.name',orderable: false},
           {data: 'nama_jurusan', name: 'jurusan.name',orderable: false},
+          {data: 'kurikulum_name', name: 'kurikulum_name.name',orderable: false},
           {data: 'tlp', name: 'profile.tlp',orderable: false},
           {data: 'angkatan', name: 'mahasiswa.angkatan',orderable: false},
 

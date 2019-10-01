@@ -27,9 +27,10 @@ class MahasiswaController extends Controller
       $data=DB::table('users')->join('mahasiswa','mahasiswa.users_uuid','=','users.uuid')
       ->join('jurusan','mahasiswa.jurusan_uuid','=','jurusan.uuid')
       ->join('profile','profile.users_uuid','=','users.uuid')
+      ->join('kurikulum','kurikulum.uuid','=','mahasiswa.kurikulum_uuid')
       ->select(
         'users.uuid','users.name','users.status','mahasiswa.nim','mahasiswa.angkatan','jurusan.program_name','jurusan.name as nama_jurusan','mahasiswa.nim',
-        'profile.tlp'
+        'profile.tlp','kurikulum.name as kurikulum_name'
         )->where('users.status',true)
       ;
       return Datatables::of($data)
@@ -52,6 +53,7 @@ class MahasiswaController extends Controller
           <li><a href="'.$data->uuid.'"><span class="fa fa-user"></span>Profile</a></li>
           <li><a href="'.route('modal.ktm',[$data->uuid]).'" rel="modal:open"><span class="fa fa-search-plus"></span>KTM</a></li>
           <li><a href="'.$data->uuid.'"><span class="fa fa-money"></span>Tagihan</a></li>
+          <li><a href="'.route('modal.pindah',[$data->uuid]).'" rel="modal:open"><span class="fa fa-location-arrow"></span>Pindah Jurusan</a></li>
 
             </ul>
             </div>';
@@ -89,9 +91,51 @@ class MahasiswaController extends Controller
        return view('admin::mahasiswa.modal.ktm',compact('data'));
 
      }
-    public function create()
+    public function pindah($id)
     {
-        return view('admin::create');
+      $data=DB::table('users')->join('mahasiswa','mahasiswa.users_uuid','=','users.uuid')
+      ->join('jurusan','mahasiswa.jurusan_uuid','=','jurusan.uuid')
+      ->join('profile','profile.users_uuid','=','users.uuid')
+      ->select(
+        'users.uuid','users.name','users.status','mahasiswa.jurusan_uuid','mahasiswa.kurikulum_uuid','jurusan.program_name','jurusan.name as nama_jurusan','mahasiswa.nim',
+        'profile.tlp','profile.avatar','profile.blood_type'
+        )->where('users.status',true)->where('mahasiswa.users_uuid',$id)->first();
+         $jurusan=DB::table('jurusan')->get();
+         $kurikulum=DB::table('kurikulum')->where('status', true)->get();
+        return view('admin::mahasiswa.modal.pindah',compact('data','jurusan','kurikulum'));
+    }
+    function postpindah(Request $request,$id)
+    {
+
+      DB::beginTransaction();
+
+          try {
+              DB::commit();
+              $angkatan=DB::table('mahasiswa')->where('users_uuid', $id)->first();
+              $jurusan=DB::table('jurusan')->where('uuid', $request->jurusan)->first();
+              $total1=DB::table('mahasiswa')->where('angkatan', $angkatan->angkatan)->count();
+              if ($total1==1) {
+                $total=1;
+              }else{
+                $total+1;
+              }
+             $counter = str_pad($total, 3, "0", STR_PAD_LEFT);
+              $nim= $angkatan->angkatan.$jurusan->kode.$counter;
+              DB::table('mahasiswa')->where('users_uuid',$id)->update([
+                'nim'=>$nim,
+                'jurusan_uuid'=>$request->jurusan,
+                'kurikulum_uuid'=>$request->kurikulum,
+                'updated_at'=>Carbon::now()
+              ]);
+              toastr()->success('Silahkan Masukan Token Anda Terlebih Dahulu', 'Sukses!');
+              return redirect()->back();
+          } catch (\Exception $e) {
+              DB::rollback();
+              echo $e->getMessage();
+                  return false;
+              return redirect()->back();
+          }
+
     }
 
     /**

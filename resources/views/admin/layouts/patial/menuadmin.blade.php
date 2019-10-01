@@ -33,7 +33,7 @@
         <ul>
             <li><a href="{{ route('psb.index') }}"><span class="fa fa-file-o"></span>PSB</a></li>
             <li><a href="{{ route('data.psb') }}"><span class="glyphicon glyphicon-pencil"></span>Daftar Ulang</a></li>
-            <li><a href="layout-nav-top.html"><span class="fa fa-angle-right"></span>Pindah Jurusan</a></li>
+           
             <li><a href="layout-nav-top.html"><span class="fa fa-calendar-o"></span>Jadwal Kuliah</a></li>
             <li><a href="layout-nav-right.html"><span class="fa fa-calendar-o"></span>Tugas</a></li>
             <li><a href="layout-nav-top-fixed.html"><span class="fa fa-clock-o"></span>Absensi</a></li>
