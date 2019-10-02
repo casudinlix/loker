@@ -2,7 +2,7 @@
 use App\Traits\Uuid as Generator;
 use Ramsey\Uuid\Uuid;
 use Carbon\Carbon;
-
+ 
 
 function getadmin()
 {
@@ -36,4 +36,32 @@ return  $dt_hari = array(
   array('kd_hari' => '8','hari' => '-','created_date' => NULL,'created_by' => NULL,'update_date' => '2009-03-04 22:57:00','update_by' => NULL)
 );
 
+}
+function akademik($uuid)
+{
+    $akademik=DB::table('akademik')->where('uuid',$uuid)->first();
+    $now = Carbon::now();
+  $start_date = Carbon::parse($akademik->start_date);
+
+  $end_date = Carbon::parse($akademik->due_date);
+
+  if($now->between($start_date,$end_date)){
+    return true;
+  } else {
+      return false;
+  }
+}
+function krs($uuid)
+{
+  $krs=DB::table('krs_config')->where('uuid',$uuid)->first();
+  $now = Carbon::now();
+$start_date = Carbon::parse($krs->start_date);
+
+$end_date = Carbon::parse($krs->due_date);
+
+if($now->between($start_date,$end_date)){
+  return true;
+} else {
+    return false;
+}
 }

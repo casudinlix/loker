@@ -6,3 +6,6 @@ data.psb
 kra.index
 akademik.mahasiswa
 akademik.dosen
+akademik.kurikulum
+config.kelas
+akademik.mk

@@ -13,7 +13,7 @@
 
         <title>{{ config('app.name', 'Laravel') }}</title>
         <script type="text/javascript">
-          url='{{ env('APP_URL') }}';
+        var  url='{{ env('APP_URL') }}';
         </script>
         <!-- CSS INCLUDE -->
         <link rel="stylesheet" type="text/css" id="theme" href="{{asset('css/theme-default.css')}}"/>

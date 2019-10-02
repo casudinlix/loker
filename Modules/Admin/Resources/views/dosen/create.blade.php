@@ -2,7 +2,7 @@
 @csrf
 <div class="form-group">
   <label for="">Nama Lengkap</label>
-  <input type="text" class="form-control" id="" placeholder="" name="name" required>
+  <input type="text" class="form-control" id="" placeholder="" name="name" required onkeyup="this.value = this.value.toUpperCase();">
 
 </div>
 <div class="form-group">

@@ -32,7 +32,7 @@ DB::beginTransaction();
     try {
         DB::commit();
         // all good
-        toastr()->success('Silahkan Masukan Token Anda Terlebih Dahulu', 'Sukses!');
+        toastr()->success('Sukses', 'Sukses!');
         return redirect()->back();
     } catch (\Exception $e) {
         DB::rollback();

@@ -20,8 +20,27 @@ Route::group(['middleware' => ['auth:admin'],'prefix' => 'admin'], function () {
     Route::resource('akademik', 'AkademikController');
     Route::resource('mahasiswa', 'MahasiswaController');
     Route::resource('dosen', 'DosenController');
+    Route::resource('kurikulum', 'KurikulumController');
+    //krs
+    Route::resource('krs', 'KrsController');
+    Route::post('api/krs','KrsController@krslist')->name('api.krs');
+    Route::post('api/krs/config','KrsController@krsconfig')->name('krs.config');
+    Route::get('createkrsconfig','KrsController@createkrsconfig')->name('config.krs');
+    Route::post('krs/config','KrsController@storeconfig')->name('store.config');
+    Route::get('edit/krs/config/{id}','KrsController@editconfig')->name('config.edit');
+    Route::post('update/krs/config/{id}','KrsController@updateconfig')->name('config.update');
+
+    Route::resource('kelas', 'KelasController');
+    Route::post('api/kelas','KelasController@kelaslist')->name('api.kelas');
+
+    //krs
+
+    Route::resource('matakuliah', 'MatakuliahController');
+    Route::post('api/mk','MatakuliahController@mklist')->name('api.mk');
+
     Route::post('api/dosen','DosenController@dosenlist')->name('api.dosen');
     Route::post('api/mhs','MahasiswaController@mhs')->name('api.mhs');
+    Route::post('api/kurikulum','KurikulumController@list')->name('api.kurikulum');
     Route::get('/modal/mhs/nilai','MahasiswaController@nilai')->name('modal.nilai');
     Route::get('/modal/mhs/ktm/{id}','MahasiswaController@ktm')->name('modal.ktm');
     Route::get('/modal/pndah/mhs/{id}','MahasiswaController@pindah')->name('modal.pindah');

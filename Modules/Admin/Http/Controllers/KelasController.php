@@ -7,9 +7,10 @@ use Illuminate\Http\Response;
 //use Illuminate\Routing\Controller;
 use Nwidart\Modules\Routing\Controller;
 use DB;
+use DataTables;
 use Carbon\Carbon;
 
-class AkademikController extends Controller
+class KelasController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -17,8 +18,44 @@ class AkademikController extends Controller
      */
     public function index()
     {
-      $this->authorize('akademik.index');
-        return view('admin::index');
+      $this->authorize('config.kelas');
+        return view('admin::kelas.index');
+    }
+    function kelaslist()
+    {
+      $this->authorize('config.kelas');
+      $data=DB::table('kelas');
+
+      // ->select('');
+      return Datatables::of($data)
+      ->addIndexColumn()
+      ->escapeColumns([])
+      // ->editColumn('nama_jurusan', function ($data) {
+      // return $data->nama_jurusan.' - '.$data->program_name;
+      // })
+      ->editColumn('created_at', function ($data) {
+      return tgl_indo($data->created_at);
+      })
+      ->addColumn('action', function ($data) {
+        return '
+        <div class="btn-group">
+        <a href="#" data-toggle="dropdown" class="btn btn-xs btn-primary dropdown-toggle"><i class="fa fa-bars"></i>Option</a>
+          <ul class="dropdown-menu" role="menu">
+          <li><a href="'.route('kelas.edit',[$data->uuid]).'" rel="modal:open"><span class="fa fa-pencil"></span>Edit</a></li>
+
+            </ul>
+            </div>';
+
+  })
+      ->editColumn('status', function ($data) {
+         if ($data->status==1) {
+           return '<span class="label label-info">Active</span>';
+         } else {
+           return '<span class="label label-danger">Non Active</span>';
+         }
+
+     })
+      ->make(true);
     }
 
     /**
@@ -27,7 +64,7 @@ class AkademikController extends Controller
      */
     public function create()
     {
-        return view('admin::create');
+        return view('admin::kelas.create');
     }
 
     /**
@@ -42,22 +79,18 @@ class AkademikController extends Controller
           try {
               DB::commit();
               // all good
-              DB::table('akademik')->insert([
+              DB::table('kelas')->insert([
                 'uuid'=>unik(),
-                'kode'=>$request->kode,
                 'name'=>$request->nama,
-                'ket'=>$request->ket,
-                'start_date'=>$request->start_date,
-                'end_date'=>$request->end_date,
-                'status'=>true,
+                'kapasitas'=>$request->kapasitas,
                 'created_by'=>getadmin(),
                 'created_at'=>Carbon::now()
               ]);
-              toastr()->success('Berhasil Entry Data', 'Sukses!');
-              return redirect()->back();
+              toastr()->success('Sukses', 'Sukses!');
+              return redirect()->route('kelas.index');
           } catch (\Exception $e) {
               DB::rollback();
-              return $e->getMessage();
+              echo $e->getMessage();
                   return false;
               return redirect()->back();
           }
@@ -80,7 +113,8 @@ class AkademikController extends Controller
      */
     public function edit($id)
     {
-        return view('admin::edit');
+      $data=DB::table('kelas')->where('uuid', $id)->first();
+        return view('admin::kelas.edit',compact('data'));
     }
 
     /**
@@ -96,24 +130,21 @@ class AkademikController extends Controller
           try {
               DB::commit();
               // all good
-              DB::table('akademik')->where('uuid', $id)->update([
+              DB::table('kelas')->where('uuid', $id)->update([
 
-                'kode'=>$request->kode,
                 'name'=>$request->nama,
-                'ket'=>$request->ket,
-                'start_date'=>$request->start_date,
-                'end_date'=>$request->end_date,
+                'kapasitas'=>$request->kapasitas,
                 'status'=>$request->status,
                 'created_by'=>getadmin(),
                 'updated_at'=>Carbon::now()
               ]);
-              toastr()->success('Berhasil Update Data', 'Sukses!');
-              return redirect()->back();
+              toastr()->success('Sukses', 'Sukses!');
+              return redirect()->route('kelas.index');
           } catch (\Exception $e) {
               DB::rollback();
-              return $e->getMessage();
-              //    return false;
-              //return redirect()->back();
+              echo $e->getMessage();
+                  return false;
+              return redirect()->back();
           }
     }
 
