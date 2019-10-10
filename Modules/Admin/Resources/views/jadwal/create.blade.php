@@ -9,18 +9,18 @@
                                    <div class="form-group">
                                      <label for="">Periode Akademik</label>
                                       <select class="form-control select2" name="akademik" required>
-                                          
+
                                         @foreach ($akademik as $key)
                                           <option value="{{ $key->uuid }}">{{ $key->name }}</option>
                                         @endforeach
                                       </select>
                                    </div>
                                    <div class="form-group">
-                                     <label for="">Kurikulum</label>
-                                      <select required class="form-control select2" name="kurikulum" id="kurikulum">
+                                     <label for="">Matakuliah</label>
+                                      <select required class="form-control select2" name="mk">
                                          <option value=""></option>
-                                        @foreach ($kurikulum as $key)
-                                          <option value="{{ $key->uuid }}">{{ $key->name }}</option>
+                                        @foreach ($mk as $key)
+                                          <option value="{{ $key->uuid }}">{{ $key->kode.' - '.$key->name }}</option>
                                         @endforeach
                                       </select>
                                    </div>
@@ -64,12 +64,7 @@
                                  @endforeach
                                </select>
                              </div>
-                               <div class="form-group">
-                                 <label for="">Matakuliah</label>
-                                 <select  required class="form-control select2 " name="mk" id="matakuliah">
-
-                                 </select>
-                               </div>
+                                
                                <div class="form-group">
                                  <label for="">Start</label>
                                  <input required type="text" class="form-control jam" id="" placeholder="" name="start">

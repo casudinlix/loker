@@ -32,9 +32,9 @@ class JadwalController extends Controller
       $data=DB::table('jadwal')
       ->join('akademik','akademik.uuid','=','jadwal.akademik_uuid')
       ->join('dosens','dosens.uuid','=','jadwal.dosen_uuid')
-      ->join('mata_kuliah','mata_kuliah.uuid','=','jadwal.mk_uuid')
+      ->join('mk','mk.uuid','=','jadwal.mk_uuid')
       ->join('kelas','kelas.uuid','=','jadwal.kelas_uuid')
-      ->select('akademik.name as nama_akademik','dosens.name as nama_dosen','mata_kuliah.name as nama_mk'
+      ->select('akademik.name as nama_akademik','mk.name as mk_name','dosens.name as nama_dosen','mk.name as nama_mk'
                 ,'jadwal.hari','jadwal.uuid','jadwal.start','jadwal.end','jadwal.created_by as dibuat',
               'kelas.name as nama_kelas')->where('akademik.status',true);
 
@@ -53,7 +53,7 @@ class JadwalController extends Controller
         <a href="#" data-toggle="dropdown" class="btn btn-xs btn-primary dropdown-toggle"><i class="fa fa-bars"></i>Option</a>
           <ul class="dropdown-menu" role="menu">
           <li><a href="'.route('jadwal.edit',[$data->uuid]).'" rel="modal:open"><span class="fa fa-pencil"></span>Edit</a></li>
-          <li><a href="'.route('jadwal.edit',[$data->uuid]).'" rel="modal:open"><span class="fa fa-trash-o"></span>Hapus</a></li>
+          <li><a href="#" onclick="hapus('."'$data->uuid'".')"><span class="fa fa-trash-o"></span>Hapus</a></li>
 
             </ul>
             </div>';
@@ -78,9 +78,9 @@ class JadwalController extends Controller
     {
         $dosen=DB::table('dosens')->get();
         $akademik=DB::table('akademik')->where('status', true)->get();
-        $kurikulum=DB::table('kurikulum')->where('status',true)->get();
+        $mk=DB::table('mk')->get();
         $kelas=DB::table('kelas')->where('status',true)->get();
-        return view('admin::jadwal.create',compact('dosen','akademik','kurikulum','kelas'));
+        return view('admin::jadwal.create',compact('dosen','akademik','mk','kelas'));
     }
 
     /**
@@ -94,7 +94,11 @@ class JadwalController extends Controller
 
           try {
               DB::commit();
-              if ($request->start< $request->end) {
+              if ($request->start>$request->end || $request->start== $request->end) {
+                toastr()->error('Error', 'Error!');
+                return redirect()->route('jadwal.index');
+              }else {
+
                 DB::table('jadwal')->insert([
                   'uuid'=>unik(),
                   'akademik_uuid'=>$request->akademik,
@@ -108,9 +112,6 @@ class JadwalController extends Controller
                   'created_at'=>Carbon::now()
                 ]);
                 toastr()->success('Sukses', 'Sukses!');
-                return redirect()->route('jadwal.index');
-              }else {
-                toastr()->error('Error', 'Error!');
                 return redirect()->route('jadwal.index');
               }
 
@@ -142,10 +143,10 @@ class JadwalController extends Controller
       $data=DB::table('jadwal')->where('uuid', $id)->first();
       $dosen=DB::table('dosens')->get();
       $akademik=DB::table('akademik')->where('status', true)->get();
-      $kurikulum=DB::table('kurikulum')->where('status',true)->get();
+      $mk=DB::table('mk')->get();
       $kelas=DB::table('kelas')->where('status',true)->get();
 
-        return view('admin::jadwal.edit',compact('data','dosen','akademik','kurikulum','kelas'));
+        return view('admin::jadwal.edit',compact('data','dosen','akademik','mk','kelas'));
     }
 
     /**
@@ -156,7 +157,37 @@ class JadwalController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+      DB::beginTransaction();
+
+          try {
+              DB::commit();
+              if ($request->start> $request->end || $request->start== $request->end) {
+                toastr()->error('Error', 'Error!');
+                return redirect()->route('jadwal.index');
+              }else {
+                DB::table('jadwal')->where('uuid',$id)->update([
+
+                  'akademik_uuid'=>$request->akademik,
+                  'dosen_uuid'=>$request->dosen,
+                  'mk_uuid'=>$request->mk,
+                  'hari'=>$request->hari,
+                  'start'=>$request->start,
+                  'kelas_uuid'=>$request->kelas,
+                  'end'=>$request->end,
+                  'created_by'=>getadmin(),
+                  'updated_at'=>Carbon::now()
+                ]);
+                toastr()->success('Sukses', 'Sukses!');
+                return redirect()->route('jadwal.index');
+
+              }
+
+          } catch (\Exception $e) {
+              DB::rollback();
+              return $e->getMessage();
+
+              //return redirect()->back();
+          }
     }
 
     /**
@@ -166,6 +197,8 @@ class JadwalController extends Controller
      */
     public function destroy($id)
     {
-        //
+      DB::table('jadwal')->where('uuid',$id)->delete();
+
+      return response()->json(['response'=>'success']);
     }
 }

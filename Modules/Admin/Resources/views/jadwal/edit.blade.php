@@ -1,8 +1,8 @@
 
 
-    <form class="form-group" action="{{ route('jadwal.edit',[$data->uuid]) }}" method="post">
+    <form class="form-group" action="{{ route('jadwal.update',[$data->uuid]) }}" method="post">
 @csrf
-
+@method('PUT')
 
 
 
@@ -16,11 +16,11 @@
                                       </select>
                                    </div>
                                    <div class="form-group">
-                                     <label for="">Kurikulum</label>
-                                      <select required class="form-control select2" name="kurikulum" id="kurikulum">
+                                     <label for="">Matakuliah</label>
+                                      <select required class="form-control select2" name="mk">
                                          <option value=""></option>
-                                        @foreach ($kurikulum as $key)
-                                          <option value="{{ $key->uuid }}">{{ $key->name }}</option>
+                                        @foreach ($mk as $key)
+                                          <option value="{{ $key->uuid }}" {{ ($key->uuid==$data->mk_uuid)?"selected":"" }}>{{ $key->kode.' - '.$key->name }}</option>
                                         @endforeach
                                       </select>
                                    </div>
@@ -64,24 +64,19 @@
                                  @endforeach
                                </select>
                              </div>
-                               <div class="form-group">
-                                 <label for="">Matakuliah</label>
-                                 <select  required class="form-control select2 " name="mk" id="matakuliah">
 
-                                 </select>
-                               </div>
                                <div class="form-group">
                                  <label for="">Start</label>
-                                 <input required type="text" class="form-control jam" id="" placeholder="" name="start">
+                                 <input required type="text" class="form-control jam" id="" value="{{ $data->start }}" name="start">
 
                                </div>
                                <div class="form-group">
                                  <label for="">End</label>
-                                 <input required type="text" class="form-control jam" id="" name="end">
+                                 <input required type="text" class="form-control jam" value="{{ $data->end }}" name="end">
 
                                </div>
                                <div class="form-group">
-                                  <button type="submit" class="pull-right btn btn-info" name="button">Simpan</button>
+                                  <button type="submit" class="pull-right btn btn-info" name="button">Update</button>
                                </div>
                            </div>
                            <!-- END STRIPED TABLE SAMPLE -->

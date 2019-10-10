@@ -7,7 +7,7 @@ Jadwal Kuliah
   <link rel="stylesheet" href="{{ asset('js/plugins/datatables/responsive.jqueryui.min.css') }}">
   <link rel="stylesheet" href="{{asset('jquery.modal.min.css')}}">
   <link rel="stylesheet" href="{{asset('clockpicker.css')}}">
-
+<link rel="stylesheet" href="{{asset('alert/css/alertify.min.css')}}">
 @endsection
 @section('atas')
   <ul class="breadcrumb">
@@ -96,6 +96,30 @@ Jadwal Kuliah
 @section('script')
 
   <script type="text/javascript">
+  function hapus($id)
+  {
+    var id=$id
+    alertify.confirm('Hapus Data', 'Data Yang Dihapus tidak dapat di kembalikan', function(){
+      $.ajax({
+        url: '{{ url('admin/jadwal/') }}/'+id,
+        type: 'POST',
+        method:'DELETE',
+        dataType: 'JSON',
+        data: {uuid:id },
+        success:function(response){
+          window.location.reload();
+        alertify.success('Data Berhasil Di Hapus')
+        },
+        error:function(response){
+          alertify.error('Error')
+        }
+      })
+
+
+      },
+    function(){ alertify.error('Cancel')
+    });
+  }
   var table=  $('#jadwal').DataTable({
       processing: true,
       serverSide: true,
@@ -112,8 +136,8 @@ Jadwal Kuliah
       columns: [
           {data: 'DT_RowIndex', orderable: false, searchable: false},
 
-          {data: 'nama_akademik', name: 'akademik.name',orderable: false},
-          {data: 'nama_mk', name: 'mata_kuliah.name',orderable: false},
+          {data: 'nama_akademik', name: 'akademik.name'},
+          {data: 'mk_name', name: 'mk.name'},
           {data: 'nama_dosen', name: 'dosens.name',orderable: false},
           {data: 'start', name: 'jadwal.start',orderable: false,searchable: false},
           {data: 'end', name: 'jadwal.end',orderable: false,searchable: false},

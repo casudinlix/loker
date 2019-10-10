@@ -25,8 +25,10 @@ class MatakuliahController extends Controller
     }
     function mklist(Request $request)
     {
-      $data=DB::table('mata_kuliah')->join('kurikulum','kurikulum.uuid','=','mata_kuliah.kurikulum_uuid')
-      ->select('mata_kuliah.uuid','mata_kuliah.kode','mata_kuliah.name','mata_kuliah.status','mata_kuliah.sks','mata_kuliah.smt','kurikulum.name as nama_kurikulum','mata_kuliah.harga');
+      $data=DB::table('mata_kuliah')
+      ->join('kurikulum','kurikulum.uuid','=','mata_kuliah.kurikulum_uuid')
+      ->join('mk','mk.uuid','=','mata_kuliah.mk_uuid')
+      ->select('mata_kuliah.uuid','mk.name','mk.kode','mata_kuliah.status','mata_kuliah.sks','mata_kuliah.smt','kurikulum.name as nama_kurikulum','mata_kuliah.harga');
       return Datatables::of($data)
       ->addIndexColumn()
       ->escapeColumns([])
@@ -36,7 +38,7 @@ class MatakuliahController extends Controller
               $data->where('mata_kuliah.kurikulum_uuid', 'like', "%{$request->get('kurikulum')}%");
           }
           if ($request->has('matakuliah')) {
-                    $data->where('mata_kuliah.name', 'like', "%{$request->get('matakuliah')}%");
+                    $data->where('mk.name', 'like', "%{$request->get('matakuliah')}%");
                 }
 
         })
@@ -72,7 +74,8 @@ class MatakuliahController extends Controller
     public function create()
     {
       $kurikulum=DB::table('kurikulum')->get();
-        return view('admin::matakuliah.create',compact('kurikulum'));
+      $mk=DB::table('mk')->get();
+        return view('admin::matakuliah.create',compact('kurikulum','mk'));
     }
 
     /**
@@ -89,8 +92,8 @@ class MatakuliahController extends Controller
               DB::table('mata_kuliah')->insert([
                 'uuid'=>unik(),
                 'kurikulum_uuid'=>$request->kurikulum,
-                'kode'=>$request->kode,
-                'name'=>$request->nama,
+                'mk_uuid'=>$request->mk,
+
                 'sks'=>$request->sks,
                 'smt'=>$request->smt,
                 'created_by'=>getadmin(),
@@ -127,10 +130,15 @@ class MatakuliahController extends Controller
      */
     public function edit($id)
     {
+      $mk=DB::table('mk')->get();
       $kurikulum=DB::table('kurikulum')->get();
-      $data=DB::table('mata_kuliah')->where('uuid', $id)->first();
+      $data=DB::table('mata_kuliah')
+      ->join('kurikulum','kurikulum.uuid','=','mata_kuliah.kurikulum_uuid')
+      ->join('mk','mk.uuid','=','mata_kuliah.mk_uuid')
+      ->select('mata_kuliah.uuid','mk.name','mk.kode','mata_kuliah.status','mata_kuliah.sks','mata_kuliah.smt','kurikulum.name as nama_kurikulum','mata_kuliah.harga','mata_kuliah.kurikulum_uuid','mata_kuliah.mk_uuid')
+      ->first();
 
-        return view('admin::matakuliah.edit',compact('kurikulum','data'));
+        return view('admin::matakuliah.edit',compact('mk','data','kurikulum'));
     }
 
     /**
@@ -148,8 +156,8 @@ class MatakuliahController extends Controller
               DB::table('mata_kuliah')->where('uuid', $id)->update([
 
                 'kurikulum_uuid'=>$request->kurikulum,
-                'kode'=>$request->kode,
-                'name'=>$request->nama,
+                'mk_uuid'=>$request->mk,
+               
                 'sks'=>$request->sks,
                 'smt'=>$request->smt,
                 'created_by'=>getadmin(),

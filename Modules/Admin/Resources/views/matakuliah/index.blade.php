@@ -121,13 +121,13 @@ var oTable = $('#mk').DataTable({
         },
         columns: [
             {data: 'DT_RowIndex', orderable: false, searchable: false},
-            {data: 'kode', name: 'kode'},
-            {data: 'name', name: 'name',orderable: false},
-              {data: 'nama_kurikulum', name: 'nama_kurikulum',orderable: false,searchable: false},
-              {data: 'sks', name: 'sks',orderable: false},
-              {data: 'smt', name: 'smt',orderable: false},
+            {data: 'kode', name: 'mk.kode'},
+            {data: 'name', name: 'mk.name',orderable: false},
+              {data: 'nama_kurikulum', name: 'kurikulum.name',orderable: false},
+              {data: 'sks', name: 'mata_kuliah.sks',orderable: false},
+              {data: 'smt', name: 'mata_kuliah.smt',orderable: false},
 
-            {data: 'status', name: 'status',orderable: false},
+            {data: 'status', name: 'mata_kuliah.status',orderable: false},
 
              {data: 'action', name: 'action', orderable: false, searchable: false}
         ]

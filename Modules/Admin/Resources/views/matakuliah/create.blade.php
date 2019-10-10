@@ -11,15 +11,15 @@
 
 </div>
 <div class="form-group">
-  <label for="">Kode</label>
-  <input type="text" class="form-control" id="" placeholder="Kode" name="kode" required>
-
+  <label for="">Matakuliah</label>
+<select required class="form-control select" name="mk">
+  <option value=""></option>
+  @foreach ($mk as $key)
+    <option value="{{ $key->uuid }}">{{ $key->kode.' - '.$key->name }}</option>
+  @endforeach
+</select>
 </div>
-<div class="form-group">
-  <label for="">Nama</label>
-  <input type="text" class="form-control" id="" placeholder="Nama" name="nama" required>
 
-</div>
 <div class="form-group">
   <label for="">SKS</label>
   <input type="number" class="form-control" id="" placeholder="SKS" name="sks" required>
@@ -39,4 +39,5 @@
 
 <script type="text/javascript">
   $(".select").selectpicker();
+    $(".select2").select2();
 </script>

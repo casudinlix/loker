@@ -42,7 +42,7 @@
             <li><a href="{{ route('krs.index') }}"><span class="fa fa-files-o"></span> KRS</a></li>
             <li><a href="pages-address-book.html"><span class="fa fa-user-md"></span> Prodi</a></li>
             <li><a href="{{ route('kurikulum.index') }}"><span class="fa fa-book"></span> Kurikulum</a></li>
-            <li><a href="{{ route('matakuliah.index') }}"><span class="fa fa-file-text"></span> Matakuliah</a></li>
+            <li><a href="{{ route('matakuliah.index') }}"><span class="fa fa-file-text"></span> Matakuliah Kurikulum</a></li>
 
 
         </ul>

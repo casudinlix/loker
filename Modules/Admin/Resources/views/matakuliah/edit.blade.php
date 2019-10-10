@@ -12,15 +12,15 @@
 
 </div>
 <div class="form-group">
-  <label for="">Kode</label>
-  <input type="text" class="form-control"   value="{{ $data->kode }}" name="kode" required>
-
+  <label for="">Matakuliah</label>
+  <select class="form-control select" name="mk" required>
+    <option value=""></option>
+    @foreach ($mk as $key)
+      <option value="{{ $key->uuid }}" {{ ($key->uuid==$data->mk_uuid)?"selected":"" }}>{{ $key->name }}</option>
+    @endforeach
+  </select>
 </div>
-<div class="form-group">
-  <label for="">Nama</label>
-  <input type="text" class="form-control" value="{{ $data->name }}" name="nama" required>
 
-</div>
 <div class="form-group">
   <label for="">SKS</label>
   <input type="number" class="form-control" value="{{ $data->sks }}" name="sks" required>
