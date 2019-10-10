@@ -16,7 +16,7 @@
         var  url='{{ env('APP_URL') }}';
         </script>
         <!-- CSS INCLUDE -->
-        <link rel="stylesheet" type="text/css" id="theme" href="{{asset('css/theme-default.css')}}"/>
+        <link rel="stylesheet" type="text/css" id="theme" href="{{asset('css/theme-black.css')}}"/>
         <!-- EOF CSS INCLUDE -->
         <link href="{{asset('toastr.css')}}" rel="stylesheet">
         <link rel="stylesheet" href="{{asset('alert/css/alertify.min.css')}}">

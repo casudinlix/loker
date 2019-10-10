@@ -313,7 +313,7 @@ PMB
                                 <div class="panel-body panel-body-table">
 
                                     <div class="table-responsive">
-                                        <table class="table table-bordered table-striped table-actions datatable_simple">
+                                        <table class="table table-bordered table-striped table-actions datatable">
                                             <thead>
                                                 <tr>
                                                     <th width="50">no</th>

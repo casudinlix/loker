@@ -2,7 +2,7 @@
 use App\Traits\Uuid as Generator;
 use Ramsey\Uuid\Uuid;
 use Carbon\Carbon;
- 
+
 
 function getadmin()
 {
@@ -64,4 +64,10 @@ if($now->between($start_date,$end_date)){
 } else {
     return false;
 }
+}
+
+function tahunakademik()
+{
+
+  return $data=DB::table('akademik')->where('status', true);
 }

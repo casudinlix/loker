@@ -1,7 +1,13 @@
 <?php
 
 namespace Modules\Admin\Http\Controllers;
-
+/**
+ * A class to get information of application
+ * @author Casudin (com.casudin@gmail.com)
+ * @version 1.0
+ * @since 2019-10-06
+ */
+ 
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;

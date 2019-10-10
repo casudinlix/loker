@@ -34,7 +34,7 @@
             <li><a href="{{ route('psb.index') }}"><span class="fa fa-file-o"></span>PSB</a></li>
             <li><a href="{{ route('data.psb') }}"><span class="glyphicon glyphicon-pencil"></span>Daftar Ulang</a></li>
 
-            <li><a href="layout-nav-top.html"><span class="fa fa-calendar-o"></span>Jadwal Kuliah</a></li>
+            <li><a href="{{ route('jadwal.index') }}"><span class="fa fa-calendar-o"></span>Jadwal Kuliah</a></li>
             <li><a href="layout-nav-right.html"><span class="fa fa-calendar-o"></span>Tugas</a></li>
             <li><a href="layout-nav-top-fixed.html"><span class="fa fa-clock-o"></span>Absensi</a></li>
             <li><a href="{{ route('dosen.index') }}"><span class="fa fa-group"></span> Dosen</a></li>
@@ -77,7 +77,7 @@
 
 
                     <li><a href="{{ route('kelas.index') }}"><span class="fa fa-building-o"></span> Ruangan</a></li>
-                        <li><a href="pages-address-book.html"><span class="fa fa-dollar"></span> Biaya</a></li>
+                        <li><a href="{{ route('mk.index') }}"><span class="fa fa-book"></span> Matakuliah</a></li>
 
 
             <li><a href="pages-messages.html"><span class="fa fa-comments"></span> Messages</a></li>

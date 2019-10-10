@@ -14,7 +14,7 @@ return [
     */
 
     'name' => env('APP_NAME', 'Laravel'),
-     
+
 
     /*
     |--------------------------------------------------------------------------
@@ -180,7 +180,7 @@ return [
         Yoeunes\Toastr\ToastrServiceProvider::class,
          Yajra\DataTables\DataTablesServiceProvider::class,
          Spatie\Permission\PermissionServiceProvider::class,
-         Milon\Barcode\BarcodeServiceProvider::class,
+         Maatwebsite\Excel\ExcelServiceProvider::class,
 
     ],
 
@@ -235,6 +235,8 @@ return [
         'DataTables' => Yajra\DataTables\Facades\DataTables::class,
         'DNS1D' => Milon\Barcode\Facades\DNS1DFacade::class,
         'DNS2D' => Milon\Barcode\Facades\DNS2DFacade::class,
+        'Excel' => Maatwebsite\Excel\Facades\Excel::class,
+
     ],
 
 ];

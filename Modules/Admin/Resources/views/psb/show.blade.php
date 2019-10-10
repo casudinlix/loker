@@ -434,7 +434,7 @@ Detail {{ $data->no_psb }}
         var id_kec = $('#kec').val();
 
         $.ajax({
-            url: '{{url('api/v1/public/kota')}}/' + id_prov,
+            url: '{{url('api/v1/public/kota')}}/'+id_prov,
             type: 'get',
             dataType: 'json',
             cache: false,
@@ -454,7 +454,7 @@ Detail {{ $data->no_psb }}
                     var id_kab = $(this).val();
 
                     $.ajax({
-                        url: '{{url('api/v1/public/kecamatan')}}/' + id_kab,
+                        url: '{{url('api/v1/public/kecamatan')}}/'+id_kab,
                         type: 'GET',
                         dataType: 'json',
                         success: function(data) {

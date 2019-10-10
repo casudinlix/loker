@@ -5,7 +5,7 @@ use App\Models\Provinsi;
 use App\Models\Kota;
 use App\Models\Kecamatan;
 use App\Models\Kelurahan;
-
+use App\Models\Mk;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -37,5 +37,11 @@ Route::group(['prefix' => 'v1/public'], function () {
       return Response()->json($data);
 
   })->name('api.kelurahan');
+
+  Route::get('mk/{id}', function($id) {
+      $data=Mk::where('kurikulum_uuid',$id)->get();
+      return Response()->json($data);
+  })->name('mk.api');
+
 
 });

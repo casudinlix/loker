@@ -36,7 +36,22 @@ Route::group(['middleware' => ['auth:admin'],'prefix' => 'admin'], function () {
     //krs
 
     Route::resource('matakuliah', 'MatakuliahController');
+    Route::resource('mk', 'MkController');
+
+    Route::post('mk/api', 'MkController@mklist')->name('mk.api');
+
+      Route::post('mk/import', 'MkController@import')->name('import');
+
+      Route::get('mk/import/data', function() {
+        return view('admin::matakuliah.mk.import');
+
+      })->name('mk.import');
+
     Route::post('api/mk','MatakuliahController@mklist')->name('api.mk');
+
+    Route::resource('jadwal', 'JadwalController');
+    Route::post('api/jadwal','JadwalController@jadwallist')->name('api.jadwal');
+
 
     Route::post('api/dosen','DosenController@dosenlist')->name('api.dosen');
     Route::post('api/mhs','MahasiswaController@mhs')->name('api.mhs');

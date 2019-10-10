@@ -36,7 +36,7 @@ class KurikulumController extends Controller
        ->select(
          'kurikulum.uuid','kurikulum.name','kurikulum.status','jurusan.program_name','jurusan.name as nama_jurusan',
          'kurikulum.name as kurikulum_name','kurikulum.created_by','kurikulum.created_at'
-         )->where('kurikulum.status',true)
+         )
        ;
        return Datatables::of($data)
        ->addIndexColumn()
@@ -52,8 +52,8 @@ class KurikulumController extends Controller
          <div class="btn-group">
          <a href="#" data-toggle="dropdown" class="btn btn-xs btn-primary dropdown-toggle"><i class="fa fa-bars"></i>Option</a>
            <ul class="dropdown-menu" role="menu">
-           <li><a href="'.route('modal.nilai').'" rel="modal:open"><span class="fa fa-signal"></span>Nilai</a></li>
-           
+           <li><a href="'.route('kurikulum.edit',[$data->uuid]).'" rel="modal:open"><span class="fa fa-pencil"></span>Edit</a></li>
+
              </ul>
              </div>';
 
@@ -70,7 +70,8 @@ class KurikulumController extends Controller
      }
     public function create()
     {
-        return view('admin::create');
+      $jurusan=DB::table('jurusan')->get();
+        return view('admin::kurikulum.create',compact('jurusan'));
     }
 
     /**
@@ -80,7 +81,25 @@ class KurikulumController extends Controller
      */
     public function store(Request $request)
     {
-        //
+      DB::beginTransaction();
+
+          try {
+              DB::commit();
+              DB::table('kurikulum')->insert([
+                'uuid'=>unik(),
+                'name'=>$request->nama,
+                'jurusan_uuid'=>$request->jurusan,
+                'status'=>true,
+                'created_by'=>getadmin()
+              ]);
+              toastr()->success('Sukses', 'Sukses!');
+              return redirect()->back();
+          } catch (\Exception $e) {
+              DB::rollback();
+              return $e->getMessage();
+              //    return false;
+              //return redirect()->back();
+          }
     }
 
     /**
@@ -100,7 +119,9 @@ class KurikulumController extends Controller
      */
     public function edit($id)
     {
-        return view('admin::edit');
+      $data=DB::table('kurikulum')->where('uuid', $id)->first();
+      $jurusan=DB::table('jurusan')->get();
+        return view('admin::kurikulum.edit',compact('data','jurusan'));
     }
 
     /**
@@ -111,7 +132,25 @@ class KurikulumController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+      DB::beginTransaction();
+
+          try {
+              DB::commit();
+              DB::table('kurikulum')->where('uuid', $id)->update([
+
+                'name'=>$request->nama,
+                'jurusan_uuid'=>$request->jurusan,
+                'status'=>$request->status,
+                'created_by'=>getadmin()
+              ]);
+              toastr()->success('Sukses', 'Sukses!');
+              return redirect()->back();
+          } catch (\Exception $e) {
+              DB::rollback();
+              return $e->getMessage();
+              //    return false;
+              //return redirect()->back();
+          }
     }
 
     /**

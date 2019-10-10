@@ -9,3 +9,5 @@ akademik.dosen
 akademik.kurikulum
 config.kelas
 akademik.mk
+akademik.jadwal
+master.mk
