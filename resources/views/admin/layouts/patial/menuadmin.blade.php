@@ -126,8 +126,9 @@
         <a href="#"><span class="fa fa-money"></span> <span class="xn-text">Keuangan</span></a>
         <ul>
              <li><a href="{{ route('kra.index') }}"><span class="fa fa-briefcase"></span> KRA</a></li>
-            <li><a href="pages-mailbox-inbox.html"><span class="fa fa-credit-card"></span> Invoice</a></li>
-            <li><a href="pages-mailbox-inbox.html"><span class="fa fa-keyboard-o"></span> Transaksi</a></li>
+             <li><a href="{{ route('biaya.index') }}"><span class="fa fa-subscript"></span> Biaya</a></li>
+            <li><a href="{{ route('invoice.index') }}"><span class="fa fa-credit-card"></span> Invoice</a></li>
+            <li><a href="{{ route('transaksi.index') }}"><span class="fa fa-ticket"></span> Transaksi</a></li>
         </ul>
     </li>
     <li class="xn-openable">

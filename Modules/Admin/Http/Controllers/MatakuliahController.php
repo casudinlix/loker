@@ -73,7 +73,7 @@ class MatakuliahController extends Controller
      */
     public function create()
     {
-      $kurikulum=DB::table('kurikulum')->get();
+      $kurikulum=DB::table('kurikulum')->where('status',true)->get();
       $mk=DB::table('mk')->get();
         return view('admin::matakuliah.create',compact('kurikulum','mk'));
     }
@@ -157,7 +157,7 @@ class MatakuliahController extends Controller
 
                 'kurikulum_uuid'=>$request->kurikulum,
                 'mk_uuid'=>$request->mk,
-               
+
                 'sks'=>$request->sks,
                 'smt'=>$request->smt,
                 'created_by'=>getadmin(),

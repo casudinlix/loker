@@ -1,6 +1,6 @@
 @extends('admin.layouts.app')
 @section('title')
-Matakuliah
+Matakuliah Per Kurikulum
 @endsection
 @section('css')
 <link rel="stylesheet" href="{{asset('select2/dist/css/select2.min.css')}}">
@@ -96,7 +96,7 @@ Matakuliah
 @section('script')
 <script type="text/javascript">
 $('.select2').select2({
-  width:'100%',
+
 });
 var oTable = $('#mk').DataTable({
   dom: "<'row'<'col-xs-12'<'col-xs-6'l><'col-xs-6'p>>r>"+

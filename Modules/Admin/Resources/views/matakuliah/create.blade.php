@@ -2,7 +2,7 @@
   @csrf
 <div class="form-group">
   <label for="">Kurikulum</label>
-  <select class="form-control select" name="kurikulum" required>
+  <select class="form-control select2" name="kurikulum" required>
     <option value=""></option>
     @foreach ($kurikulum as $key)
       <option value="{{ $key->uuid }}">{{ $key->name }}</option>
@@ -12,7 +12,7 @@
 </div>
 <div class="form-group">
   <label for="">Matakuliah</label>
-<select required class="form-control select" name="mk">
+<select required class="form-control select2" name="mk">
   <option value=""></option>
   @foreach ($mk as $key)
     <option value="{{ $key->uuid }}">{{ $key->kode.' - '.$key->name }}</option>
@@ -39,5 +39,8 @@
 
 <script type="text/javascript">
   $(".select").selectpicker();
-    $(".select2").select2();
+    $(".select2").select2({
+      width:'100%',
+      placeholder:'Pilih'
+    });
 </script>

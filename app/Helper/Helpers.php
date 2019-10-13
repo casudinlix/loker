@@ -69,5 +69,33 @@ if($now->between($start_date,$end_date)){
 function tahunakademik()
 {
 
-  return $data=DB::table('akademik')->where('status', true);
+  return $data=DB::table('akademik')->where('status', true)->first()->uuid;
+}
+function nomor($table,$prefix)
+{
+  $data=DB::table($table)->max('id');
+  $max_id = $data;
+  if(isset($max_id) && $max_id > 0)
+        {
+          $max_id = $max_id+1;
+        }else{
+            $max_id = 1;
+        }
+        if(!$max_id){
+        $max_id = '0000'.$max_id;
+      }elseif($max_id > 0 && $max_id < 10){
+          $max_id = '0000'.$max_id;
+      }elseif($max_id >= 10 && $max_id < 100){
+          $max_id = '000'.$max_id;
+      }elseif($max_id >= 100 && $max_id < 1000){
+          $max_id = '00'.$max_id;
+      }elseif($max_id >= 1000 && $max_id < 10000){
+          $max_id = '0'.$max_id;
+      }else{
+          $max_id = $max_id;
+      }
+      return $prefix.$max_id;
+
+
+
 }

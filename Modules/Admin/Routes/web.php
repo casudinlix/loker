@@ -68,5 +68,17 @@ Route::group(['middleware' => ['auth:admin'],'prefix' => 'admin'], function () {
     Route::get('keuangan/kra', 'KeuanganController@kra')->name('kra.index');
     Route::post('keuangan/kra/api','KeuanganController@kralist')->name('kra.list');
 
+    Route::group(['prefix' => 'keuangan'], function() {
+        Route::resource('invoice','Keuangan\InvoiceController');
+        Route::post('api/invoice','Keuangan\InvoiceController@list')->name('api.invoice');
+        Route::get('get/mhs/{id}','Keuangan\InvoiceController@mhs');
+        Route::resource('biaya','Keuangan\BiayaController');
+        Route::post('api/biaya','Keuangan\BiayaController@list')->name('api.biaya');
+        Route::resource('transaksi','Keuangan\TransaksiController');
+        Route::get('transaksi/langsung/{id}','Keuangan\TransaksiController@langsung')->name('transaksi.langsung');
+        Route::post('transaki/simpan','Keuangan\TransaksiController@simpan')->name('transaksi.simpan');
+    });
+
+
 
 });

@@ -3,7 +3,7 @@
   @method('PUT')
 <div class="form-group">
   <label for="">Kurikulum</label>
-  <select class="form-control select" name="kurikulum" required>
+  <select class="form-control select2" name="kurikulum" required>
     <option value=""></option>
     @foreach ($kurikulum as $key)
       <option value="{{ $key->uuid }}" {{ ($key->uuid==$data->kurikulum_uuid)?"selected":"" }}>{{ $key->name }}</option>
@@ -13,7 +13,7 @@
 </div>
 <div class="form-group">
   <label for="">Matakuliah</label>
-  <select class="form-control select" name="mk" required>
+  <select class="form-control select2" name="mk" required>
     <option value=""></option>
     @foreach ($mk as $key)
       <option value="{{ $key->uuid }}" {{ ($key->uuid==$data->mk_uuid)?"selected":"" }}>{{ $key->name }}</option>
@@ -33,7 +33,7 @@
 </div>
 <div class="form-group">
   <label for="">Status</label>
-  <select class="form-control select" name="status">
+  <select class="form-control select2" name="status">
     <option value="true" {{ ($data->status==true)?"selected":"" }}>Active</option>
     <option value="false" {{ ($data->status==false)?"selected":"" }}>Non Active</option>
   </select>
@@ -48,4 +48,9 @@
 
 <script type="text/javascript">
   $(".select").selectpicker();
+    $(".select2").select2({
+      width:'100%',
+      placeholder:'Pilih',
+      allowclear:'true'
+    });
 </script>

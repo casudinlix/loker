@@ -11,3 +11,7 @@ config.kelas
 akademik.mk
 akademik.jadwal
 master.mk
+keuangan.biaya
+keuangan.invoice
+create.invoice
+edit.invoice

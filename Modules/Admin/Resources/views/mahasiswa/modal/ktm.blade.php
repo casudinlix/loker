@@ -159,7 +159,7 @@
                    <td>{{ $data->nama_jurusan }}</td>
                </tr>
 
-                
+
                <tr>
                    <td>Blood group &nbsp;&nbsp;</td>
                    <td>:</td>
@@ -183,4 +183,4 @@
     </div>
 </div>
 
-<a  target="_blank" href="https://smart-collage.globalmulia.ac.id/admin/print_id/4" class="btn btn-primary"><i class="entypo-print"></i> Print</a>
+<a  target="_blank" href="#" class="btn btn-primary"><i class="entypo-print"></i> Print</a>
