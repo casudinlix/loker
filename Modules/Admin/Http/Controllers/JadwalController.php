@@ -77,10 +77,10 @@ class JadwalController extends Controller
     public function create()
     {
         $dosen=DB::table('dosens')->get();
-        $akademik=DB::table('akademik')->where('status', true)->get();
+        $akademik=DB::table('akademik')->where('status', true)->first();
         $mk=DB::table('mk')->get();
         $kelas=DB::table('kelas')->where('status',true)->get();
-        return view('admin::jadwal.create',compact('dosen','akademik','mk','kelas'));
+        return view('admin::jadwal.buat',compact('dosen','akademik','mk','kelas'));
     }
 
     /**
@@ -94,27 +94,59 @@ class JadwalController extends Controller
 
           try {
               DB::commit();
-              if ($request->start>$request->end || $request->start== $request->end) {
-                toastr()->error('Error', 'Error!');
-                return redirect()->route('jadwal.index');
-              }else {
 
-                DB::table('jadwal')->insert([
-                  'uuid'=>unik(),
-                  'akademik_uuid'=>$request->akademik,
-                  'dosen_uuid'=>$request->dosen,
-                  'mk_uuid'=>$request->mk,
-                  'hari'=>$request->hari,
-                  'start'=>$request->start,
-                  'kelas_uuid'=>$request->kelas,
-                  'end'=>$request->end,
-                  'created_by'=>getadmin(),
-                  'created_at'=>Carbon::now()
-                ]);
-                toastr()->success('Sukses', 'Sukses!');
-                return redirect()->route('jadwal.index');
+              // $input=[
+              //
+              // ];
+
+              for ($i=0; $i <count($request->akademik) ; $i++) {
+                if ($request->start[$i]>$request->end[$i] || $request->start[$i]== $request->end[$i]) {
+                    toastr()->error('Error Cek Kembali Jam mulai Dan Jam Akhir', 'Error!');
+                    return redirect()->route('jadwal.index');
+                  }else{
+                  DB::table('jadwal')->insert([
+                    'uuid'=>unik(),
+                    'akademik_uuid'=>$request->akademik[$i],
+                    'dosen_uuid'=>$request->dosen[$i],
+                    'mk_uuid'=>$request->mk[$i],
+                    'hari'=>$request->hari[$i],
+                    'start'=>$request->start[$i],
+                    'kelas_uuid'=>$request->kelas[$i],
+                    'end'=>$request->end[$i],
+                    'created_by'=>getadmin(),
+                    'created_at'=>Carbon::now()
+                  ]);
+
+                }
+
               }
+              toastr()->success('Sukses', 'Sukses!');
+              return redirect()->route('jadwal.index');
 
+            // foreach ($request->mk as $key => $value) {
+            //
+            //   if ($request->start>$request->end || $request->start== $request->end) {
+            //     toastr()->error('Error Cek Kembali Jam mulai Dan Jam Akhir', 'Error!');
+            //     return redirect()->route('jadwal.index');
+            //   }else {
+                //dd($request->hari);
+                //
+                // DB::table('jadwal')->insert([
+                //   'uuid'=>unik(),
+                //   'akademik_uuid'=>$request->akademik,
+                //   'dosen_uuid'=>$request->dosen,
+                //   'mk_uuid'=>$request->mk,
+                //   'hari'=>$request->hari,
+                //   'start'=>$request->start,
+                //   'kelas_uuid'=>$request->kelas,
+                //   'end'=>$request->end,
+                //   'created_by'=>getadmin(),
+                //   'created_at'=>Carbon::now()
+                // ]);
+                // toastr()->success('Sukses', 'Sukses!');
+                // return redirect()->route('jadwal.index');
+            //   }
+            // }
           } catch (\Exception $e) {
               DB::rollback();
               return $e->getMessage();

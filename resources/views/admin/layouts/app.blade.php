@@ -20,8 +20,7 @@
         <!-- EOF CSS INCLUDE -->
         <link href="{{asset('toastr.css')}}" rel="stylesheet">
         <link rel="stylesheet" href="{{asset('alert/css/alertify.min.css')}}">
-        <link rel="stylesheet" href="{{asset('jquery.modal.min.css')}}">
-        @yield('css')
+         @yield('css')
     </head>
     <body>
         <!-- START PAGE CONTAINER -->
@@ -97,8 +96,7 @@
         <script type="text/javascript" src="{{asset('js/plugins/jquery/jquery-ui.min.js')}}"></script>
         <script type="text/javascript" src="{{asset('js/plugins/bootstrap/bootstrap.min.js')}}"></script>
         <script src="{{ asset('alert/alertify.min.js') }}" charset="utf-8"></script>
-        <script type="text/javascript" src="{{asset('jquery.modal.min.js')}}"></script>
-        <!-- END PLUGINS -->
+         <!-- END PLUGINS -->
 
         <!-- THIS PAGE PLUGINS -->
 

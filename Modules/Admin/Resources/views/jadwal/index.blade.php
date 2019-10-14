@@ -23,7 +23,7 @@ Jadwal Kuliah
                                   <div class="panel-heading">
                                       <h3 class="panel-title">@yield('title')</h3>
                                       <ul class="panel-controls">
-                                           <li><a href="{{ route('jadwal.create') }}" rel="modal:open"  class="panel" data-toggle="tooltip" data-placement="top" title="Tambah data" ><span class="fa fa-plus"></span></a></li>
+                                           <li><a href="{{ route('jadwal.create') }}"  class="panel" data-toggle="tooltip" data-placement="top" title="Tambah data" ><span class="fa fa-plus"></span></a></li>
                                            <li><a href="#" class="panel-refresh"><span class="fa fa-refresh"></span></a></li>
                                        </ul>
                                       <div class="btn-group pull-right">
@@ -96,30 +96,7 @@ Jadwal Kuliah
 @section('script')
 
   <script type="text/javascript">
-  function hapus($id)
-  {
-    var id=$id
-    alertify.confirm('Hapus Data', 'Data Yang Dihapus tidak dapat di kembalikan', function(){
-      $.ajax({
-        url: '{{ url('admin/jadwal/') }}/'+id,
-        type: 'POST',
-        method:'DELETE',
-        dataType: 'JSON',
-        data: {uuid:id },
-        success:function(response){
-          window.location.reload();
-        alertify.success('Data Berhasil Di Hapus')
-        },
-        error:function(response){
-          alertify.error('Error')
-        }
-      })
 
-
-      },
-    function(){ alertify.error('Cancel')
-    });
-  }
   var table=  $('#jadwal').DataTable({
       processing: true,
       serverSide: true,
@@ -149,5 +126,30 @@ Jadwal Kuliah
       ],
 
   });
+  function hapus($id)
+  {
+    var id=$id
+    alertify.confirm('Hapus Data', 'Data Yang Dihapus tidak dapat di kembalikan', function(){
+      $.ajax({
+        url: '{{ url('admin/jadwal/') }}/'+id,
+        type: 'POST',
+        method:'DELETE',
+        dataType: 'JSON',
+        data: {uuid:id },
+        success:function(response){
+        //  window.location.reload();
+        table.ajax.reload();
+        alertify.success('Data Berhasil Di Hapus')
+        },
+        error:function(response){
+          alertify.error('Error')
+        }
+      })
+
+
+      },
+    function(){ alertify.error('Cancel')
+    });
+  }
   </script>
 @endsection
