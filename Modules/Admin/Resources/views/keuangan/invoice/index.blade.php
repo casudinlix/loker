@@ -5,7 +5,7 @@ Invoice
 @section('css')
   <link rel="stylesheet" href="{{asset('select2/dist/css/select2.min.css')}}">
   <link rel="stylesheet" href="{{ asset('js/plugins/datatables/responsive.jqueryui.min.css') }}">
-
+{{-- <link rel="stylesheet" href="{{asset('jquery.modal.min.css')}}"> --}}
 @endsection
 @section('atas')
   <ul class="breadcrumb">
@@ -14,6 +14,7 @@ Invoice
   </ul>
 @endsection
 @section('content')
+<div class="row"
   <div class="col-md-12">
 
                               <!-- START DATATABLE EXPORT -->
@@ -58,10 +59,39 @@ Invoice
 
                                   </div>
                               </div>
+
                             </div>
+</div>
+
+@endsection
+@section('modal')
+  <div class="modal" id="myModal" tabindex="-1" role="dialog" aria-labelledby="largeModalHead" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+     <div class="modal-content">
+
+     </div>
+  </div>
+  </div>
+  <div class="modal" id="bayar" tabindex="-1" role="dialog" aria-labelledby="largeModalHead" aria-hidden="true">
+  <div class="modal-dialog modal-lg ">
+     <div class="modal-content">
+
+
+     </div>
+  </div>
+  </div>
+  <div class="modal" id="cetak" tabindex="-1" role="dialog" aria-labelledby="largeModalHead" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+     <div class="modal-content">
+
+
+     </div>
+  </div>
+  </div>
 @endsection
 @section('js')
-  
+  {{-- <script type="text/javascript" src="{{asset('jquery.modal.min.js')}}"></script> --}}
+
   <script type="text/javascript" src="{{asset('js/plugins/datatables/jquery.dataTables.min.js')}}"></script>
   <script type="text/javascript" src="{{asset('js/plugins/datatables/dataTables.responsive.js')}}"></script>
   <script type="text/javascript" src="{{asset('js/plugins/bootstrap/bootstrap-select.js')}}"></script>
@@ -77,6 +107,19 @@ Invoice
 @endsection
 @section('script')
 <script type="text/javascript">
+$("#myModal").on("show.bs.modal", function(e) {
+    var link = $(e.relatedTarget);
+    $(this).find(".modal-content").load(link.attr("href"));
+});
+$("#bayar").on("show.bs.modal", function(e) {
+    var link = $(e.relatedTarget);
+    $(this).find(".modal-content").load(link.attr("href"));
+});
+$("#cetak").on("show.bs.modal", function(e) {
+    var link = $(e.relatedTarget);
+    $(this).find(".modal-content").load(link.attr("href"));
+});
+
 var krsconfig=  $('#invoice').DataTable({
     processing: true,
     serverSide: true,

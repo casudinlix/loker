@@ -81,19 +81,19 @@ Tambah Invoice
                                             <div class="form-group">
                                                 <label class="col-md-3 control-label">Jumlah</label>
                                                 <div class="col-md-9">
-                                                    <input type="text" class="form-control money" name="total_amount">
+                                                    <input type="text" class="form-control money" name="total_amount" required>
                                                 </div>
                                             </div>
                                             <div class="form-group">
                                                 <label class="col-md-3 control-label">Batas Akhir Pembayaran</label>
                                                 <div class="col-md-9">
-                                                    <input type="text" class="mask_date form-control" name="due_date">
+                                                    <input type="text" class="mask_date form-control" name="due_date" required>
                                                 </div>
                                             </div>
                                             <div class="form-group">
                                                 <label class="col-md-3 control-label">Diskon</label>
                                                 <div class="col-md-9">
-                                                    <input type="text" class="form-control money" name="potongan">
+                                                    <input type="text" class="form-control money" name="potongan" value="0">
                                                 </div>
                                             </div>
 
@@ -130,6 +130,9 @@ Tambah Invoice
 
       $("#angkatan").change(function(event) {
         var id = $("#angkatan").val();
+        //$('#angkatan').selectpicker('refresh');
+        $("#angkatan").attr("disabled", true);
+
         $.ajax({
           url: '{{ url('admin/keuangan/get/mhs/') }}/'+id,
           type: 'GET',

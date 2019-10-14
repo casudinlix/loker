@@ -16,7 +16,7 @@
         var  url='{{ env('APP_URL') }}';
         </script>
         <!-- CSS INCLUDE -->
-        <link rel="stylesheet" type="text/css" id="theme" href="{{asset('css/theme-black.css')}}"/>
+        <link rel="stylesheet" type="text/css" id="theme" href="{{asset('css/theme-default.css')}}"/>
         <!-- EOF CSS INCLUDE -->
         <link href="{{asset('toastr.css')}}" rel="stylesheet">
         <link rel="stylesheet" href="{{asset('alert/css/alertify.min.css')}}">
@@ -50,9 +50,10 @@
                 </div>
 
                 <!-- PAGE CONTENT WRAPPER -->
-                <div class="page-content-wrap">
+                <div class="page-content-wrap animated fadeIn">
 
-@yield('content')
+                  @yield('content')
+
 
                 </div>
                 <!-- END PAGE CONTENT WRAPPER -->
@@ -60,7 +61,7 @@
             <!-- END PAGE CONTENT -->
         </div>
         <!-- END PAGE CONTAINER -->
-
+@yield('modal')
         <!-- MESSAGE BOX-->
         <div class="message-box animated fadeIn" data-sound="alert" id="mb-signout">
             <div class="mb-container">

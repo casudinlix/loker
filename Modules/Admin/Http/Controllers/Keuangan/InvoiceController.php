@@ -58,6 +58,17 @@ class InvoiceController extends Controller
              ->editColumn('total_amount', function ($data) {
              return 'Rp. '.number_format($data->total_amount - $data->potongan);
              })
+             ->editColumn('status', function ($data) {
+             if ($data->status=='Lunas') {
+               return '<span class="label label-success">Lunas</span>';
+             }elseif ($data->status=='Partial') {
+               return '<span class="label label-warning">Partial</span>';
+             }elseif ($data->status=='Cancel by admin') {
+               return '<span class="label label-danger">Cancel by admin</span>';
+             }else {
+               return  '<span class="label label-danger">Belum Bayar</span>';
+             }
+             })
 
              ->addColumn('action', function ($data) {
                if ($data->status=='Lunas'||$data->status=='Cancel by admin') {
@@ -67,8 +78,10 @@ class InvoiceController extends Controller
                <div class="btn-group">
                <a href="#" data-toggle="dropdown" class="btn btn-xs btn-primary dropdown-toggle"><i class="fa fa-bars"></i>Option</a>
                  <ul class="dropdown-menu" role="menu">
-                 <li><a href="'.route('transaksi.langsung',[$data->uuid]).'" rel="modal:open"><span class="fa fa-dollar"></span>Bayar</a></li>
+                 <li><a href="'.route('transaksi.langsung',[$data->uuid]).'" data-toggle="modal" data-target="#bayar" data-remote="false"><span class="fa fa-dollar"></span>Bayar</a></li>
                  <li><a href="'.route('invoice.edit',[$data->uuid]).'"><span class="fa fa-pencil"></span>Edit</a></li>
+                 <li><a href="'.route('transaksi.invoice',[$data->uuid]).'" data-toggle="modal" data-target="#myModal" data-remote="false"><span class="fa fa-clock-o"></span>Riwayat</a></li>
+                 <li><a href="'.route('invoice.show',[$data->uuid]).'" data-toggle="modal" data-target="#cetak" data-remote="false"><span class="fa fa-print"></span>Cetak</a></li>
 
                    </ul>
                    </div>';
@@ -137,6 +150,7 @@ class InvoiceController extends Controller
 
           try {
               DB::commit();
+
               foreach ($request->mhs as $key => $value) {
                  DB::table('invoice')->insert([
                    'uuid'=>unik(),
@@ -177,7 +191,12 @@ class InvoiceController extends Controller
      */
     public function show($id)
     {
-        return view('admin::show');
+      $x=DB::table('invoice')->where('uuid', $id)->first();
+      $data=DB::table('transaksi')->where('invoice_uuid',$id)->get();
+      $inv=DB::table('invoice')->where('uuid', $id)->get();
+      $mhs=DB::table('mahasiswa')->join('users','users.uuid','=','mahasiswa.users_uuid')->where('users.uuid',$x->users_uuid)->first();
+      return view('admin::keuangan.invoice.show',compact('data','inv','mhs','x'));
+
     }
 
     /**

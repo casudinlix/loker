@@ -77,6 +77,7 @@ Route::group(['middleware' => ['auth:admin'],'prefix' => 'admin'], function () {
         Route::resource('transaksi','Keuangan\TransaksiController');
         Route::get('transaksi/langsung/{id}','Keuangan\TransaksiController@langsung')->name('transaksi.langsung');
         Route::post('transaki/simpan','Keuangan\TransaksiController@simpan')->name('transaksi.simpan');
+        Route::get('transaki/riwayat/{id}','Keuangan\TransaksiController@riwayat')->name('transaksi.invoice');
     });
 
 

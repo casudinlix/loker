@@ -41,12 +41,11 @@ class TransaksiController extends Controller
     function langsung($id)
     {
       $inv=DB::table('invoice')->where('uuid', $id)
-
       ->first();
-
+      $tran=DB::table('transaksi')->where('invoice_uuid', $id)->get();
       $user=DB::table('mahasiswa')
       ->join('users','users.uuid','=','mahasiswa.users_uuid')->where('users_uuid',$inv->users_uuid)->first();
-      return view('admin::keuangan.transaksi.langsung',compact('inv','user'));
+      return view('admin::keuangan.transaksi.langsung',compact('inv','user','tran'));
     }
     function simpan(Request $request)
     {
@@ -91,6 +90,14 @@ class TransaksiController extends Controller
     function kode()
     {
       return nomor('transaksi',date('ymd'));
+    }
+    function riwayat($id)
+    {
+      $data=DB::table('transaksi')->where('invoice_uuid',$id)->get();
+      $inv=DB::table('invoice')->where('uuid', $id)->first();
+      $mhs=DB::table('mahasiswa')->join('users','users.uuid','=','mahasiswa.users_uuid')->where('users.uuid',$inv->users_uuid)->first();
+      return view('admin::keuangan.transaksi.riwayat',compact('data','inv','mhs'));
+
     }
 
     /**
