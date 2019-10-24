@@ -28,7 +28,7 @@ class MatakuliahController extends Controller
       $data=DB::table('mata_kuliah')
       ->join('kurikulum','kurikulum.uuid','=','mata_kuliah.kurikulum_uuid')
       ->join('mk','mk.uuid','=','mata_kuliah.mk_uuid')
-      ->select('mata_kuliah.uuid','mk.name','mk.kode','mata_kuliah.status','mata_kuliah.sks','mata_kuliah.smt','kurikulum.name as nama_kurikulum','mata_kuliah.harga');
+      ->select('mata_kuliah.uuid','mk.name','mk.kode','mata_kuliah.status','mata_kuliah.harga','mata_kuliah.sks','mata_kuliah.smt','kurikulum.name as nama_kurikulum','mata_kuliah.harga');
       return Datatables::of($data)
       ->addIndexColumn()
       ->escapeColumns([])

@@ -83,7 +83,7 @@ Buat Jadwal
 
                                   </div>
                                   <div class="panel-footer">
-                                      <button class="btn btn-default">Clear Form</button>
+                                      <a class="btn btn-default" href="{{ route('jadwal.index') }}">Kembali</a>
                                       <button class="btn btn-primary pull-right">Submit</button>
                                   </div>
                               </div>

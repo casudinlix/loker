@@ -59,6 +59,7 @@ Matakuliah Per Kurikulum
                                                   <th>sks</th>
                                                   <th>Smt</th>
 
+
                                                   <th>Status</th>
 
                                                   <th>#</th>

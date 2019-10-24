@@ -29,8 +29,10 @@ class KeuanganController extends Controller
     function kralist(Request $request)
       {
         $this->authorize('kra.index');
-        $data=DB::table('mata_kuliah')->join('kurikulum','kurikulum.uuid','=','mata_kuliah.kurikulum_uuid')
-        ->select('mata_kuliah.uuid','mata_kuliah.kode','mata_kuliah.name','mata_kuliah.status','mata_kuliah.sks','mata_kuliah.smt','kurikulum.name as nama_kurikulum','mata_kuliah.harga');
+        $data=DB::table('mata_kuliah')
+        ->join('kurikulum','kurikulum.uuid','=','mata_kuliah.kurikulum_uuid')
+        ->join('mk','mk.uuid','=','mata_kuliah.mk_uuid')
+        ->select('mata_kuliah.uuid','mk.name','mk.kode','mata_kuliah.status','mata_kuliah.harga','mata_kuliah.sks','mata_kuliah.smt','kurikulum.name as nama_kurikulum','mata_kuliah.harga');
         return Datatables::of($data)
         ->addIndexColumn()
         ->escapeColumns([])
@@ -47,7 +49,7 @@ class KeuanganController extends Controller
           <div class="btn-group">
           <a href="#" data-toggle="dropdown" class="btn btn-xs btn-primary dropdown-toggle"><i class="fa fa-bars"></i>Option</a>
             <ul class="dropdown-menu" role="menu">
-            <li><a href="'.$data->uuid.'">Ubah</a></li>
+            <li><a href="'.route('kra.edit',[$data->uuid]).'" rel="modal:open">Ubah</a></li>
               <li><a href="#">Hapus</a></li>
               </ul>
               </div>';
@@ -72,6 +74,22 @@ class KeuanganController extends Controller
     public function create()
     {
         return view('admin::create');
+    }
+    function kracreate($id)
+    {
+      $data=DB::table('mata_kuliah')->where('uuid', $id)->first();
+
+      return view('admin::keuangan.kra.edit',compact('data'));
+
+    }
+    function simpan(Request $request,$id)
+    {
+      DB::table('mata_kuliah')->where('uuid', $id)->update([
+        'harga'=>$request->harga,
+        'updated_at'=>Carbon::now(),
+      ]);
+      toastr()->success('Sukses', 'Sukses!');
+      return redirect()->back();
     }
 
     /**
@@ -112,7 +130,12 @@ class KeuanganController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+      DB::table('mata_kuliah')->where('uuid', $id)->update([
+        'harga'=>$request->harga,
+        'updated_at'=>Carbon::now(),
+      ]);
+      toastr()->success('Sukses', 'Sukses!');
+      return redirect()->back();
     }
 
     /**

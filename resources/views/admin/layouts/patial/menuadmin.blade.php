@@ -6,11 +6,11 @@
     </li>
     <li class="xn-profile">
         <a href="#" class="profile-mini">
-            <img src="{{Storage:: url('avatar/male.svg')}}" alt="John Doe"/>
+        <img src="{{Storage:: url('avatar/male.svg')}}" alt="{{Auth::user()->name}}"/>
         </a>
         <div class="profile">
             <div class="profile-image">
-                <img src="{{Storage:: url('avatar/male.svg')}}" alt="{{ 's' }}"/>
+                <img src="{{Storage:: url('avatar/male.svg')}}" alt="{{Auth::user()->name}}"/>
             </div>
             <div class="profile-data">
                 <div class="profile-data-name">{{ Auth::guard('admin')->user()->name ?? "Guest" }}</div>
@@ -36,7 +36,6 @@
 
             <li><a href="{{ route('jadwal.index') }}"><span class="fa fa-calendar-o"></span>Jadwal Kuliah</a></li>
             <li><a href="layout-nav-right.html"><span class="fa fa-calendar-o"></span>Tugas</a></li>
-            <li><a href="layout-nav-top-fixed.html"><span class="fa fa-clock-o"></span>Absensi</a></li>
             <li><a href="{{ route('dosen.index') }}"><span class="fa fa-group"></span> Dosen</a></li>
             <li><a href="{{ route('mahasiswa.index') }}"><span class="fa fa-group"></span> Mahasiswa</a></li>
             <li><a href="{{ route('krs.index') }}"><span class="fa fa-files-o"></span> KRS</a></li>
@@ -48,10 +47,10 @@
         </ul>
     </li>
     <li class="xn-openable">
-        <a href="#"><span class="fa fa-clock-o"></span> KRS / KRA</a>
+        <a href="#"><span class="fa fa-archive"></span> Administrasi</a>
         <ul>
-            <li><a href="pages-timeline.html"><span class="fa fa-align-center"></span> Pengjuan KRS</a></li>
-            <li><a href="pages-timeline-simple.html"><span class="fa fa-align-justify"></span> Ujian Online</a></li>
+        <li><a href="{{route('realisasi.index')}}"><span class="fa fa-calendar"></span> Realisasi Mengajar</a></li>
+            <li><a href="pages-timeline-simple.html"><span class="fa fa-clock-o"></span> Absensi</a></li>
         </ul>
     </li>
     <li class="xn-openable">
@@ -125,10 +124,29 @@
     <li class="xn-openable">
         <a href="#"><span class="fa fa-money"></span> <span class="xn-text">Keuangan</span></a>
         <ul>
-             <li><a href="{{ route('kra.index') }}"><span class="fa fa-briefcase"></span> KRA</a></li>
+                {{-- <li><a href="{{ route('biaya.index') }}"><span class="fa fa-subscript"></span> Anggaran</a></li> --}}
+
+             {{-- <li><a href="{{ route('kra.index') }}"><span class="fa fa-briefcase"></span> KRA</a></li> --}}
              <li><a href="{{ route('biaya.index') }}"><span class="fa fa-subscript"></span> Biaya</a></li>
             <li><a href="{{ route('invoice.index') }}"><span class="fa fa-credit-card"></span> Invoice</a></li>
-            <li><a href="{{ route('transaksi.index') }}"><span class="fa fa-ticket"></span> Transaksi</a></li>
+            <li><a href="{{ route('transaksi.index') }}"><span class="fa fa-ticket"></span>Transaksi</a></li>
+        </ul>
+    </li>
+    <li class="xn-openable">
+        <a href="#"><span class="fa fa-dollar"></span> <span class="xn-text">Akuntansi</span></a>
+        <ul>
+             <li class="xn-openable">
+                 <a href="#"><span class="fa fa-cogs"></span> Setup</a>
+                <ul>
+                    <li>  <a href="#"><span class="fa fa-renren"></span> COA (Charts Of Accounts)</a></li>
+                    <li><a href="{{ route('invoice.index') }}"><span class="fa fa-credit-card"></span> Saldo Hutang</a></li>
+
+                    <li><a href="{{ route('biaya.index') }}"><span class="fa fa-subscript"></span> Piutang</a></li>
+
+                </ul>
+                </li>
+            <li><a href="{{ route('invoice.index') }}"><span class="fa fa-credit-card"></span> Invoice</a></li>
+            <li><a href="{{ route('transaksi.index') }}"><span class="fa fa-ticket"></span>Transaksi</a></li>
         </ul>
     </li>
     <li class="xn-openable">

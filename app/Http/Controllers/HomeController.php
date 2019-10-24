@@ -11,9 +11,13 @@ class HomeController extends Controller
      *
      * @return void
      */
+    protected $redirectTo = 'home';
+
     public function __construct()
     {
-      //  $this->middleware('auth');
+      // $this->middleware('auth');
+       $this->middleware('auth:web');
+
     }
 
     /**
@@ -23,11 +27,21 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        return redirect()->route('mahasiswa.home');
     }
     function home()
     {
       $this->authorize('xx');
-      return 'xx';
+      return redirect()->route('mahasiswa.home');
+
+    }
+    public function logout(Request $request)
+    {
+
+        $this->guard()->logout();
+
+        $request->session()->invalidate();
+
+        return $this->loggedOut($request) ?: redirect()->route('mahasiswa.home');
     }
 }

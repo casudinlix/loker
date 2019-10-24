@@ -14,7 +14,7 @@ use App\User;
 use App\Notifications\UserWelcome;
 
 Route::get('/', function () {
-    return view('welcome');
+    return redirect('login');
 });
 
 Route::get('tesemail', function() {

@@ -15,3 +15,4 @@ keuangan.biaya
 keuangan.invoice
 create.invoice
 edit.invoice
+keuangan.transaksi

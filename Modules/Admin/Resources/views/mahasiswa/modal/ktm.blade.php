@@ -176,11 +176,10 @@
         </div>
 
         <hr>
-            <img style="-webkit-user-select: none;max-width:200px;background-position: 0px 0px, 10px 10px;background-size: 20px 20px;background-image:linear-gradient(45deg, #eee 25%, transparent 25%, transparent 75%, #eee 75%, #eee 100%),linear-gradient(45deg, #eee 25%, white 25%, white 75%, #eee 75%, #eee 100%);" src="https://smart-collage.globalmulia.ac.id/admin/create_barcode/61206160003">
 
 
 
     </div>
 </div>
 
-<a  target="_blank" href="#" class="btn btn-primary"><i class="entypo-print"></i> Print</a>
+ 

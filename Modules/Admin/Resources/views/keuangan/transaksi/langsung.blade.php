@@ -7,7 +7,7 @@
         <div class="container-fluid">
 
 
-        <form class="form-horizontal" action="{{route('transaksi.simpan')}}" method="post">
+        <form class="form-horizontal" action="{{route('transaksi.simpan')}}" method="post" enctype="multipart/form-data">
           @csrf
         <div class="form-group">
           <label for="">Nomor Invoice</label>
@@ -55,6 +55,14 @@
           <input type="number" class="form-control" id="sum" placeholder="" name="sisa" readonly min=0 oninput="validity.valid||(value='');">
 
         </div>
+        <div class="form-group">
+            <label for="">Status</label>
+            <select name="status" class="form-control select">
+                <option value="On Proses">On Proses</option>
+                <option value="Verified">Verified</option>
+                <option value="Reject">Reject</option>
+            </select>
+          </div>
 
         <div class="form-group">
           <label for="">Bukti Bayar</label>

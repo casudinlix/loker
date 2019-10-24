@@ -10,7 +10,7 @@ KRS
 @section('atas')
   <ul class="breadcrumb">
       <li><a href="#">Akademik</a></li>
-      <li class="active">Kurikulum</li>
+      <li class="active">KRS</li>
   </ul>
 @endsection
 @section('content')
@@ -20,10 +20,7 @@ KRS
                               <div class="panel panel-default">
                                   <div class="panel-heading">
                                       <h3 class="panel-title">KRS Mahasiswa</h3>
-                                      <ul class="panel-controls">
-                                           <li><a href="{{ route('dosen.create') }}" rel="modal:open" class="panel" data-toggle="tooltip" data-placement="top" title="Tambah data" ><span class="fa fa-plus"></span></a></li>
-                                           <li><a href="#" class="panel-refresh" onclick="roloadkrs()"><span class="fa fa-refresh"></span></a></li>
-                                       </ul>
+
 
 
                                   </div>
@@ -33,10 +30,9 @@ KRS
                                               <tr>
                                                   <th>No</th>
 
-                                                  <th>No Transaksi </th>
+                                                  <th>Matakuliah </th>
                                                   <th>Periode Akademik</th>
                                                   <th>Mahasiswa</th>
-                                                  <th>No Invoice </th>
                                                   <th>Total SKS</th>
                                                   <th>Status</th>
                                                   <th>Tanggal</th>
@@ -92,6 +88,46 @@ KRS
 
                           </div>
 
+                          <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h3 class="panel-title">KRS Ijin</h3>
+                                <ul class="panel-controls">
+                                     <li><a href="{{ route('create.ijin-krs') }}" rel="modal:open" class="panel" data-toggle="tooltip" data-placement="top" title="Tambah data" ><span class="fa fa-plus"></span></a></li>
+                                     <li><a href="#" class="panel-refresh" onclick="reloadconfig()"><span class="fa fa-refresh"></span></a></li>
+                                 </ul>
+
+
+                            </div>
+                            <div class="panel-body">
+                                <table id="krs_ijin" class="table" width="100%">
+                                    <thead>
+                                        <tr>
+                                            <th>No</th>
+                                            <th>NIM</th>
+                                            <th>Mahasiswa</th>
+                                            <th>Tahun Akademik </th>
+                                            <th>Tanggal Mulai</th>
+                                            <th>Tanggal Berakhir</th>
+
+                                            <th>Max SKS</th>
+                                            <th>Dibuat</th>
+                                            <th>Keterangan</th>
+                                            <th>Tanggal</th>
+
+                                            <th>#</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+
+                                    </tbody>
+
+                                </table>
+
+                            </div>
+                        </div>
+
+                    </div>
+
 @endsection
 @section('js')
   <script type="text/javascript" src="{{asset('jquery.modal.min.js')}}"></script>
@@ -99,7 +135,7 @@ KRS
   <script type="text/javascript" src="{{asset('js/plugins/datatables/dataTables.responsive.js')}}"></script>
   <script type="text/javascript" src="{{asset('js/plugins/bootstrap/bootstrap-select.js')}}"></script>
   <script type="text/javascript" src="{{asset('js/plugins/bootstrap/bootstrap-datepicker.js')}}"></script>
- <script src="{{ asset('select2/dist/js/select2.full.min.js') }}" charset="utf-8"></script>
+ <script src="{{ asset('select2/dist/js/select2.min.js') }}" charset="utf-8"></script>
 
    <script type="text/javascript" src="{{asset('js/plugins/tableexport/tableExport.js')}}"></script>
 <script type="text/javascript" src="{{asset('js/plugins/tableexport/jquery.base64.js')}}"></script>
@@ -107,6 +143,7 @@ KRS
 <script type="text/javascript" src="{{asset('js/plugins/tableexport/jspdf/libs/sprintf.js')}}"></script>
 <script type="text/javascript" src="{{asset('js/plugins/tableexport/jspdf/jspdf.js')}}"></script>
 <script type="text/javascript" src="{{asset('js/plugins/tableexport/jspdf/libs/base64.js')}}"></script>
+
 @endsection
 @section('script')
 
@@ -139,6 +176,7 @@ KRS
       ],
 
   });
+
   var krsconfig=  $('#krsconfig').DataTable({
       processing: true,
       serverSide: true,
@@ -167,6 +205,38 @@ KRS
       ],
 
   });
+
+  var krsconfig=  $('#krs_ijin').DataTable({
+      processing: true,
+      serverSide: true,
+      responsive: true,
+      autoWidth: false,
+      searchable: false,
+      lengthMenu: [[5,10, 25, 50, -1], [5,10, 25, 50, "All"]],
+            paging: true,
+            pageLength:5,
+      ajax: {
+          url: '{{route('krs.ijin')}}',
+          method: 'POST'
+      },
+
+      columns: [
+          {data: 'DT_RowIndex', orderable: false, searchable: false},
+
+          {data: 'nim', name: 'mahasiswa.nim'},
+          {data: 'name', name: 'users.name'},
+          {data: 'nama_akademik', name: 'akademik.name'},
+          {data: 'start_date', name: 'start_date.name',orderable: false,searchable: false},
+          {data: 'due_date', name: 'due_date',orderable: false},
+          {data: 'max_sks', name: 'max_sks',orderable: false,searchable: false},
+          {data: 'created_by', name: 'created_by',orderable: false,searchable: false},
+          {data: 'ket', name: 'ket',orderable: false,searchable: false},
+          {data: 'created_at', name: 'created_at',orderable: false,searchable: false},
+         {data: 'action', name: 'action', orderable: false, searchable: false}
+
+      ],
+
+  });
   function reloadconfig()
   {
     krsconfig.ajax.reload();
@@ -174,6 +244,31 @@ KRS
   function roloadkrs()
   {
     table.ajax.reload();
+  }
+
+  function hapus($id)
+  {
+    var id=$id
+    alertify.confirm('Hapus Ijin KRS', 'Data Yang Dihapus tidak dapat di kembalikan', function(){
+      $.ajax({
+        url: '{{ route('delete.ijinkrs') }}',
+        type: 'POST',
+        dataType: 'JSON',
+        data: {uuid:id },
+        success:function(response){
+          window.location.reload();
+        alertify.success('Data Berhasil Di Hapus')
+        console.log(response);
+        },
+        error:function(response){
+          alertify.error('Error')
+        }
+      })
+
+
+      },
+    function(){ alertify.error('Cancel')
+    });
   }
   </script>
 @endsection

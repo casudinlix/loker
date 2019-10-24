@@ -46,30 +46,63 @@ function akademik($uuid)
   $end_date = Carbon::parse($akademik->due_date);
 
   if($now->between($start_date,$end_date)){
-    return true;
+    return 'ok';
   } else {
-      return false;
+      return 'false';
   }
 }
-function krs($uuid)
+function krs()
 {
-  $krs=DB::table('krs_config')->where('uuid',$uuid)->first();
+  $krs=DB::table('krs_config')->where('akademik_uuid',tahunakademik())->first();
   $now = Carbon::now();
 $start_date = Carbon::parse($krs->start_date);
 
 $end_date = Carbon::parse($krs->due_date);
 
 if($now->between($start_date,$end_date)){
-  return true;
+  return 'ok';
 } else {
-    return false;
+    return 'false';
 }
+}
+function krs_ijin($user)
+{
+    $d=DB::table('krs_ijin')->where('akademik_uuid',tahunakademik())->where('users_uuid',$user)->count();
+if ($d>0) {
+    $krs=DB::table('krs_ijin')->where('akademik_uuid',tahunakademik())->where('users_uuid',$user)->first();
+
+    $now = Carbon::now();
+  $start_date = Carbon::parse($krs->start_date);
+
+  $end_date = Carbon::parse($krs->due_date);
+
+  if($now->between($start_date,$end_date)){
+    return 'ok';
+  } else {
+      return 'false';
+  }
+} else {
+    return 'kosong';
 }
 
+
+}
+
+function invoice($user)
+{
+
+return DB::table('invoice')->where('users_uuid',$user)->where('status','!=','Lunas')->count();
+
+}
 function tahunakademik()
 {
 
   return $data=DB::table('akademik')->where('status', true)->first()->uuid;
+}
+function akademikname()
+{
+
+  return $data=DB::table('akademik')->where('status', true)->first()->name;
 }
 function nomor($table,$prefix)
 {
@@ -97,5 +130,18 @@ function nomor($table,$prefix)
       return $prefix.$max_id;
 
 
+
+}
+function avatar()
+{
+    return DB::table('profile')->where('users_uuid',Auth::user()->uuid)->first()->avatar;
+}
+function get_mhs()
+{
+    return Auth::user()->name;
+}
+function nim()
+{
+    return DB::table('mahasiswa')->where('users_uuid',Auth::user()->uuid)->first()->nim;
 
 }

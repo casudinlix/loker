@@ -1,19 +1,7 @@
 <?php
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
+use Illuminate\Http\Request;
 
-// Route::prefix('admin')->group(function() {
-//     Route::get('/home', 'AdminController@index');
-// });admin.auth:admin
 Route::group(['middleware' => ['auth:admin'],'prefix' => 'admin'], function () {
     Route::get('/', 'AdminController@index')->name('admin.home');
     Route::resource('psb', 'PsbController');
@@ -25,6 +13,18 @@ Route::group(['middleware' => ['auth:admin'],'prefix' => 'admin'], function () {
     Route::resource('krs', 'KrsController');
     Route::post('api/krs','KrsController@krslist')->name('api.krs');
     Route::post('api/krs/config','KrsController@krsconfig')->name('krs.config');
+    Route::post('api/krs/ijin','KrsController@krs_ijin')->name('krs.ijin');
+    Route::get('krs/ijin/create','KrsController@create_ijin_krs')->name('create.ijin-krs');
+    Route::post('simpan/ijinkrs','KrsController@simpan_ijin')->name('simpan_ijinkrs');
+    Route::post('hapusijin/krs','KrsController@delete_ijin')->name('delete.ijinkrs');
+    Route::get('mahasiswa/cari/{name}', function (Request $request) {
+        $dt=DB::table('mahasiswa')
+            ->join('users','users.uuid','mahasiswa.users_uuid')
+            ->select('mahasiswa.users_uuid','users.name')->where('users.name', 'LIKE','%'. $request->get('term').'%')->limit(10)->get();
+
+            return response()->json($dt);
+    })->name('select.mhs');
+
     Route::get('createkrsconfig','KrsController@createkrsconfig')->name('config.krs');
     Route::post('krs/config','KrsController@storeconfig')->name('store.config');
     Route::get('edit/krs/config/{id}','KrsController@editconfig')->name('config.edit');
@@ -60,13 +60,17 @@ Route::group(['middleware' => ['auth:admin'],'prefix' => 'admin'], function () {
     Route::get('/modal/mhs/ktm/{id}','MahasiswaController@ktm')->name('modal.ktm');
     Route::get('/modal/pndah/mhs/{id}','MahasiswaController@pindah')->name('modal.pindah');
     Route::post('postpindah/{id}','MahasiswaController@postpindah')->name('post.pindah');
+    Route::get('tagihan/mhs/{id}','MahasiswaController@tagihan')->name('tagihan.mhs');
     Route::get('/xx','AdminController@home');
     Route::post('/psb/store', 'PsbController@create')->name('psbgelombang.store');
     Route::get('list/psb','PsbController@data_psb')->name('data.psb');
     Route::post('psb/delete','PsbController@hapus')->name('delete.psb');
     Route::post('psb/posting/','PsbController@storepsb')->name('posting.psb');
     Route::get('keuangan/kra', 'KeuanganController@kra')->name('kra.index');
+    Route::get('keuangan/kra/create/{id}', 'KeuanganController@kracreate')->name('kra.edit');
+    Route::post('keuangan/kra/store/{id}', 'KeuanganController@simpan1')->name('kra.simpan');
     Route::post('keuangan/kra/api','KeuanganController@kralist')->name('kra.list');
+    Route::resource('keuangan1', 'KeuanganController');
 
     Route::group(['prefix' => 'keuangan'], function() {
         Route::resource('invoice','Keuangan\InvoiceController');
@@ -78,8 +82,15 @@ Route::group(['middleware' => ['auth:admin'],'prefix' => 'admin'], function () {
         Route::get('transaksi/langsung/{id}','Keuangan\TransaksiController@langsung')->name('transaksi.langsung');
         Route::post('transaki/simpan','Keuangan\TransaksiController@simpan')->name('transaksi.simpan');
         Route::get('transaki/riwayat/{id}','Keuangan\TransaksiController@riwayat')->name('transaksi.invoice');
+        Route::post('api/transaksi','Keuangan\TransaksiController@list')->name('api.transaksi');
+
     });
 
+    Route::group(['prefix' => 'administrasi'], function () {
+        Route::resource('realisasi', 'Administrasi\RealisasiController');
+        Route::post('api/realisasi', 'Administrasi\RealisasiController@list')->name('api.realisasi');
+
+    });
 
 
 });

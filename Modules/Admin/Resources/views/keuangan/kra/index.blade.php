@@ -5,6 +5,8 @@ KRA List
 @section('css')
 <link rel="stylesheet" href="{{asset('select2/dist/css/select2.min.css')}}">
 <link rel="stylesheet" href="{{ asset('js/plugins/datatables/responsive.jqueryui.min.css') }}">
+<link rel="stylesheet" href="{{asset('jquery.modal.min.css')}}">
+
 @endsection
 @section('atas')
   <ul class="breadcrumb">
@@ -19,7 +21,7 @@ KRA List
                               <div class="panel panel-default">
                                   <div class="panel-heading">
                                       <h3 class="panel-title">@yield('title')</h3>
-
+                                  
                                       <div class="panel-body">
 		<form method="POST" id="search-form" class="form-inline" role="form">
 
@@ -83,6 +85,8 @@ KRA List
 <script type="text/javascript" src="{{asset('js/plugins/tableexport/jspdf/libs/sprintf.js')}}"></script>
 <script type="text/javascript" src="{{asset('js/plugins/tableexport/jspdf/jspdf.js')}}"></script>
 <script type="text/javascript" src="{{asset('js/plugins/tableexport/jspdf/libs/base64.js')}}"></script>
+<script type="text/javascript" src="{{asset('jquery.modal.min.js')}}"></script>
+
 @endsection
 @section('script')
 <script type="text/javascript">

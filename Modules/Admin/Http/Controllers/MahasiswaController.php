@@ -24,7 +24,8 @@ class MahasiswaController extends Controller
     function mhs()
     {
       $this->authorize('akademik.mahasiswa');
-      $data=DB::table('users')->join('mahasiswa','mahasiswa.users_uuid','=','users.uuid')
+      $data=DB::table('users')
+      ->join('mahasiswa','mahasiswa.users_uuid','=','users.uuid')
       ->join('jurusan','mahasiswa.jurusan_uuid','=','jurusan.uuid')
       ->join('profile','profile.users_uuid','=','users.uuid')
       ->join('kurikulum','kurikulum.uuid','=','mahasiswa.kurikulum_uuid')
@@ -52,7 +53,7 @@ class MahasiswaController extends Controller
           <li><a href="'.route('modal.nilai').'" rel="modal:open"><span class="fa fa-signal"></span>Nilai</a></li>
           <li><a href="'.$data->uuid.'"><span class="fa fa-user"></span>Profile</a></li>
           <li><a href="'.route('modal.ktm',[$data->uuid]).'" rel="modal:open"><span class="fa fa-search-plus"></span>KTM</a></li>
-          <li><a href="'.$data->uuid.'"><span class="fa fa-money"></span>Tagihan</a></li>
+          <li><a href="'.route('tagihan.mhs',$data->uuid).'" rel="modal:open"><span class="fa fa-money"></span>Tagihan</a></li>
           <li><a href="'.route('modal.pindah',[$data->uuid]).'" rel="modal:open"><span class="fa fa-location-arrow"></span>Pindah Jurusan</a></li>
 
             </ul>
@@ -78,15 +79,22 @@ class MahasiswaController extends Controller
      {
        return view('admin::mahasiswa.modal.nilai');
      }
+     function tagihan($id)
+     {
+       $data=DB::table('invoice')->where('users_uuid',$id);
+
+       return view('admin::mahasiswa.modal.tagihan');
+     }
      function ktm($id)
      {
-       $data=DB::table('users')->join('mahasiswa','mahasiswa.users_uuid','=','users.uuid')
+       $data=DB::table('users')
+       ->join('mahasiswa','mahasiswa.users_uuid','=','users.uuid')
        ->join('jurusan','mahasiswa.jurusan_uuid','=','jurusan.uuid')
        ->join('profile','profile.users_uuid','=','users.uuid')
        ->select(
          'users.uuid','users.name','users.status','mahasiswa.nim','mahasiswa.angkatan','jurusan.program_name','jurusan.name as nama_jurusan','mahasiswa.nim',
          'profile.tlp','profile.avatar','profile.blood_type'
-         )->where('users.status',true)->first()
+         )->where('users.status',true)->where('users.uuid',$id)->first()
        ;
        return view('admin::mahasiswa.modal.ktm',compact('data'));
 

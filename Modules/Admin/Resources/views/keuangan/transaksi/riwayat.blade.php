@@ -21,6 +21,8 @@
                                                           <th width="100">Type Bayar</th>
                                                           <th width="100">Total Bayar</th>
                                                           <th width="100">Dibuat</th>
+                                                          <th width="100">Update</th>
+                                                          <th width="100">Status</th>
                                                           <th width="150">Tanggal</th>
                                                       </tr>
                                                   </thead>
@@ -39,15 +41,16 @@
                                                       <td>{{ $key->type }}</td>
                                                       <td>Rp. {{ number_format($key->total_bayar) }}</td>
                                                       <td>{{ $key->created_by }}</td>
+                                                      <td>{{ $key->updated_by }}</td>
+                                                      <td>{{ $key->status }}</td>
                                                       <td>{{ tgl_indo($key->created_at) }}</td>
-
                                                       @php
                                                         $total +=$key->total_bayar;
                                                       @endphp
                                                       </tr>
                                                     @endforeach
                                                     <tr>
-                                                      <td colspan="6">Total Bayar  : Rp. {{ number_format($total) }} </td>
+                                                      <td colspan="6">Total Bayar  : Rp. {{ number_format($totalbayar->total_bayar) }} </td>
                                                     </tr>
                                                     <tr>
                                                       <td colspan="6">Sisa Pembayaran  : Rp. {{ number_format($tagihan-$total) }} </td>

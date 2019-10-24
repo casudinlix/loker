@@ -1,7 +1,12 @@
 <?php
 
 return [
-
+//intansi static
+'nama_kampus'=>'Media Insan Cendikia',
+'tlp'=>'021-8936726 / 8937186',
+'fax'=>'',
+'email'=>'info@mic.ac.id',
+'alamat'=>'Harco Teknik Blok H No. 1-5 Kawasan Industri Jababeka',
     /*
     |--------------------------------------------------------------------------
     | Application Name

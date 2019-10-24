@@ -72,7 +72,14 @@ class InvoiceController extends Controller
 
              ->addColumn('action', function ($data) {
                if ($data->status=='Lunas'||$data->status=='Cancel by admin') {
-                 return '';
+                 return '<div class="btn-group">
+                 <a href="#" data-toggle="dropdown" class="btn btn-xs btn-primary dropdown-toggle"><i class="fa fa-bars"></i>Option</a>
+                   <ul class="dropdown-menu" role="menu">
+                   <li><a href="'.route('transaksi.invoice',[$data->uuid]).'" data-toggle="modal" data-target="#myModal" data-remote="false"><span class="fa fa-clock-o"></span>Riwayat</a></li>
+                   <li><a href="'.route('invoice.show',[$data->uuid]).'" data-toggle="modal" data-target="#cetak" data-remote="false"><span class="fa fa-print"></span>Cetak</a></li>
+
+                     </ul>
+                     </div>';
                }else{
                return '
                <div class="btn-group">
@@ -191,10 +198,13 @@ class InvoiceController extends Controller
      */
     public function show($id)
     {
-      $x=DB::table('invoice')->where('uuid', $id)->first();
+      $x=DB::table('invoice')->where('invoice.uuid', $id)
+      ->join('biaya','biaya.uuid','=','invoice.biaya_uuid')->first();
       $data=DB::table('transaksi')->where('invoice_uuid',$id)->get();
       $inv=DB::table('invoice')->where('uuid', $id)->get();
-      $mhs=DB::table('mahasiswa')->join('users','users.uuid','=','mahasiswa.users_uuid')->where('users.uuid',$x->users_uuid)->first();
+      $mhs=DB::table('mahasiswa')
+      ->join('profile','profile.users_uuid','=','mahasiswa.users_uuid')
+      ->join('users','users.uuid','=','mahasiswa.users_uuid')->where('users.uuid',$x->users_uuid)->first();
       return view('admin::keuangan.invoice.show',compact('data','inv','mhs','x'));
 
     }
